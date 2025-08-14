@@ -1,4 +1,39 @@
 package aplicativo.treino.Gerador.de.treinos.service;
 
+import aplicativo.treino.Gerador.de.treinos.domain.User;
+import aplicativo.treino.Gerador.de.treinos.repository.UserRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+/**
+ * Service é a camada de serviço da aplicação
+ * responsável pela logica do negocio
+ * @version 1.0
+ */
+@Service
 public class UserService {
+
+    private UserRepository userRepository;
+
+    public UserService(UserRepository userRepository){
+        this.userRepository=userRepository;
+    }
+
+    /**
+     * Metodo para achar ou criar um novo usuario
+     * @param user
+     * @return caso o usuario ja tenha se registrado com seu email, retorna o usuario salvo
+     * senao, retorna um novo usuario
+     */
+    public User findOrCreateUser(User user){
+        User newUser = new User(user.getName(), user.getEmail());
+
+        Optional<User> existingUser = userRepository.findEmail(newUser.getEmail());
+        if(existingUser.isPresent()){
+            return existingUser.get();
+        }
+
+        return userRepository.save(newUser);
+    }
 }
