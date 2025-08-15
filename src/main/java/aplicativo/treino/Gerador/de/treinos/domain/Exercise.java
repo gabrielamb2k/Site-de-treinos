@@ -2,11 +2,11 @@ package aplicativo.treino.Gerador.de.treinos.domain;
 
 public abstract class Exercise {
    /*Atributos*/
-  String nome;
-  int reps;
-  int series;
+  private String nome;
+  private int reps;
+  private int series;
    //obs== possiveis observações sobre a execução do exercicio, se não houver deixar explicito o não uso de obs
-  String obs;
+  private String obs;
    /*builder*/
   public Exercise(String nome, int reps, int series, String obs){
     this.nome=nome;
