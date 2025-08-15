@@ -5,6 +5,7 @@ public abstract class Exercise {
   String nome;
   int reps;
   int series;
+   //obs== possiveis observações sobre a execução do exercicio, se não houver deixar explicito o não uso de obs
   String obs;
    /*builder*/
   public Exercise(String nome, int reps, int series, String obs){
@@ -26,4 +27,17 @@ public abstract class Exercise {
   public void setReps(int reps){
     this.reps=reps;
   }
+     public int getSeries(){
+    return series;
+  }
+  public void setSeries(int series){
+    this.serie=series;
+  }
+   public String getObs(){
+      return obs;
+   }
+   public void setObs(String obs){
+      this.obs=obs;
+   }
+   
 }
