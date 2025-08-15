@@ -3,30 +3,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class WorkoutTemplate {
+    /*atributos*/
     private List<Exercise> exercises;
-    //div == divisão de treinos (ex: upper/lower, fullbody etc... lembrando que a div define a quantidade de dias à ir na academia)
+    /*div == divisão de treinos (ex: upper/lower, fullbody etc... lembrando que a div será escolhida conforme a resposta do usuario 
+    no questionário)*/
     private String div;
-    
-
-    public WorkoutTemplate(String div){
+    // duracao == duracao máxima do treino, de acordo com a resposta do usauario
+    private int duracao;
+    /*builder*/
+    public WorkoutTemplate(String div,int duracao){
       this.div=div;
+        this.duracao=duracao
         this.exercises= new ArrayList<>();
     }
-
+    /*get.set div*/
     public String getDiv() {
         return div;
     }
-
     public void setDiv(String div) {
         this.div = div;
     }
-
+    /*get.set exercises*/
     public List<Exercise> getExercises() {
         return exercises;
     }
-
-    public void setExercises(List<Exercise> exercises) {
-        this.exercises = exercises;
+    /*get.set duracao*/
+    public void setDuracao(int duracao) {
+        this.duracao = duracao;
     }
+     public String getDuracao() {
+        return duracao;
+    }
+    /*methods*/
+    //adiciona exercicios à lista de exercicios
+    public void addExercise(Exercise exercise){
+        exercises.add(exercise);
+    }
+    //template method uso do final para fixar a sequencia de criação de treinos
+    public final void criaWorkout(){
+        //aquecimento
+        aquec();
+        //treino principal
+        treino();
+        //alongamento final
+        along();
+    }
+    /*métodos que serão modificados para cada tipo de treino gym ou hybrid */
+    protected abstract void aquec();
+    protected abstract void treino();
+    protected abstract void along();
 
 }
