@@ -1,4 +1,6 @@
-package aplicativo.treino.Gerador.de.treinos.domain;
+package aplicativo.treino.Gerador.de.treinos.domain.workout;
+import aplicativo.treino.Gerador.de.treinos.domain.exercise.Exercise;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +15,8 @@ public abstract class WorkoutTemplate {
     /*builder*/
     public WorkoutTemplate(String div,int duracao){
       this.div=div;
-        this.duracao=duracao
-        this.exercises= new ArrayList<>();
+      this.duracao=duracao;
+      this.exercises= new ArrayList<>();
     }
     /*get.set div*/
     public String getDiv() {
@@ -31,7 +33,7 @@ public abstract class WorkoutTemplate {
     public void setDuracao(int duracao) {
         this.duracao = duracao;
     }
-     public String getDuracao() {
+    public int getDuracao() {
         return duracao;
     }
     /*methods*/

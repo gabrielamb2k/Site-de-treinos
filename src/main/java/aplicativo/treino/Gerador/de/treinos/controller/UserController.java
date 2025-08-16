@@ -1,6 +1,6 @@
 package aplicativo.treino.Gerador.de.treinos.controller;
 
-import aplicativo.treino.Gerador.de.treinos.domain.User;
+import aplicativo.treino.Gerador.de.treinos.domain.user.User;
 import aplicativo.treino.Gerador.de.treinos.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller -> camada de iteração com o usuario
- * @version 1.0
+ * Alteracao no retorno da pagina de login para a pagina da aplicacao
+ * @version 1.1
  */
 @Controller
 public class UserController {
@@ -40,7 +41,7 @@ public class UserController {
     public String login(@ModelAttribute User user, HttpSession httpSession){
         User usuarioLogado =userService.findOrCreateUser(user);
         httpSession.setAttribute("currentUser", usuarioLogado);
-        return "redirect:/api/workout";
+        return "redirect:/workout/generator";
     }
 
 

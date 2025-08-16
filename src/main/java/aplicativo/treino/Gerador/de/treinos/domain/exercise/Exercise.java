@@ -1,4 +1,4 @@
-package aplicativo.treino.Gerador.de.treinos.domain;
+package aplicativo.treino.Gerador.de.treinos.domain.exercise;
 
 public abstract class Exercise {
    /*Atributos*/
@@ -31,7 +31,7 @@ public abstract class Exercise {
     return series;
   }
   public void setSeries(int series){
-    this.serie=series;
+    this.series=series;
   }
    public String getObs(){
       return obs;

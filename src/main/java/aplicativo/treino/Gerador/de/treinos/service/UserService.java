@@ -1,6 +1,6 @@
 package aplicativo.treino.Gerador.de.treinos.service;
 
-import aplicativo.treino.Gerador.de.treinos.domain.User;
+import aplicativo.treino.Gerador.de.treinos.domain.user.User;
 import aplicativo.treino.Gerador.de.treinos.repository.UserRepository;
 import org.springframework.stereotype.Service;
 

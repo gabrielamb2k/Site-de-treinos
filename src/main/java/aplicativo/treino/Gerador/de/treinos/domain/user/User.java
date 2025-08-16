@@ -1,4 +1,4 @@
-package aplicativo.treino.Gerador.de.treinos.domain;
+package aplicativo.treino.Gerador.de.treinos.domain.user;
 
 public class User {
 

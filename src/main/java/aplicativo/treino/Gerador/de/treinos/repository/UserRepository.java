@@ -1,6 +1,6 @@
 package aplicativo.treino.Gerador.de.treinos.repository;
 
-import aplicativo.treino.Gerador.de.treinos.domain.User;
+import aplicativo.treino.Gerador.de.treinos.domain.user.User;
 
 import java.util.Optional;
 
