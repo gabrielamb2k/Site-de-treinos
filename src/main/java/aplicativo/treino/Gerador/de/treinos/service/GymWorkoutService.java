@@ -6,10 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Classe de serviço da {@link HybridWorkout}
- * @version 1.0
- */
 @Service
 public class GymWorkoutService {
 
