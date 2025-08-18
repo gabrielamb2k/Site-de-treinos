@@ -70,7 +70,7 @@ public class GymWorkout extends Workout{
         boolean hasMainExercise = false;
 
         for (GymExercice ex : gymExerciseList) {
-            if (!ex.isAquecimento()) { // só exercícios principais
+            if (!ex.isAquec()) { // só exercícios principais
                 System.out.printf(">> %s: %d séries de %d repetições. (Obs: %s)\n",
                         ex.getNome(), ex.getSeries(), ex.getReps(),
                         (ex.getObs() != null && !ex.getObs().isBlank()) ? ex.getObs() : "Sem observações.");
