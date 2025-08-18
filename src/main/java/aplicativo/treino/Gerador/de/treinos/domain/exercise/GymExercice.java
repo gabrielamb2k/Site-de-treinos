@@ -15,6 +15,6 @@ public class GymExercice extends Exercise{
     }
 
     public void setAquec(boolean aquec) {
-        isAquecimento = aquec;
+        isAquec = aquec;
     }
 }
