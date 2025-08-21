@@ -44,7 +44,10 @@ public class WorkoutGenerator {
                     .filter(w -> informacoes.getDuracaoDoTreino().equalsIgnoreCase(String.valueOf(w.getDuracao())))
                     .collect(Collectors.toList());
 
-        }
-        return null;
+        }else  // pega um treino de somente academia
+            return gymWorkoutService.gymWorkoutList().stream()
+                    .filter(w -> informacoes.getDivisaoDeTreino().equalsIgnoreCase(w.getDiv()))
+                    .filter(w -> informacoes.getDuracaoDoTreino().equalsIgnoreCase(String.valueOf(w.getDuracao())))
+                    .collect(Collectors.toList());
     }
 }
