@@ -154,7 +154,6 @@ exercisesLW90.add(new GymExercice("Elevação de Panturrilhas", 20, 4, "Em pé o
 exercisesLW90.add(new GymExercice("Abdominal Infra", 20, 3, "Com as mãos sob o glúteo", false));
 exercisesLW90.add(new GymExercice("Prancha", 60, 3, "Segurar 60 segundos", false));
 exercisesLW90.add(new GymExercice("Abdominal com Peso", 15, 3, "Foco em core", false));
-exercisesLW90.add(new GymExercice("Alongamento Final", 10, 1, "Alongar corpo inteiro", true));
 
 GymWorkout treinoLW90 = new GymWorkout("LW90", 90, exercisesLW90);
 
