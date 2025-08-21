@@ -235,32 +235,55 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
     }
 
 
-    private void loadGymWorkouts() {
+      private void loadGymWorkouts() {
         System.out.println("--- Carregando templates de treinos de ACADEMIA ---");
-        // --- Template de Treino 1: Hipertrofia ---
-        List<GymExercice> exercisesHipertrofia2 = new ArrayList<>();
-        exercisesHipertrofia2.add(new GymExercice("Supino Reto", 15, 3, "Somente com a barra", true));
-        exercisesHipertrofia2.add(new GymExercice("Agachamento Livre", 12, 4, "Foco na execução lenta e controlada", false));
-        exercisesHipertrofia2.add(new GymExercice("Supino Reto", 12, 4, "Pegada um pouco mais aberta que a largura dos ombros", false));
-        exercisesHipertrofia2.add(new GymExercice("Remada Curvada", 12, 4, "Manter a coluna ereta durante todo o movimento", false));
-        exercisesHipertrofia2.add(new GymExercice("Desenvolvimento Militar", 15, 3, "Executar em pé para maior ativação do core", false));
-        exercisesHipertrofia2.add(new GymExercice("Abdominal infra", 60, 3, "Com as mão no Glúteo", false));
+        /*TREINOS div==Full-Body */
+        // --- Template de Treino 1: FUll BODY,60 min ---
+        List<GymExercice> exercisesFB60 = new ArrayList<>();
+        exercisesFB60.add(new GymExercice("Supino Reto", 15, 3, "Somente com a barra", true));
+        exercisesFB60.add(new GymExercice("Agachamento Livre", 12, 4, "Foco na execução lenta e controlada", false));
+        exercisesFB60.add(new GymExercice("Supino Reto", 12, 4, "Pegada um pouco mais aberta que a largura dos ombros", false));
+        exercisesFB60.add(new GymExercice("Remada Curvada", 12, 4, "Manter a coluna ereta durante todo o movimento", false));
+        exercisesFB60.add(new GymExercice("Desenvolvimento Militar", 15, 3, "Executar em pé para maior ativação do core", false));
+        exercisesFB60.add(new GymExercice("Abdominal infra", 60, 3, "Com as mão no Glúteo", false));
 
-        GymWorkout treinoHipertrofia2 = new GymWorkout("Full-Body", 60, exercisesHipertrofia2);
+        GymWorkout treinoFB60 = new GymWorkout("Full-Body", 60, exercisesFB60);
 
-        // --- Template de Treino 2: Potencia ---
-        List<GymExercice> exercisesPotencia = new ArrayList<>();
-        exercisesPotencia.add(new GymExercice("Afundo ", 15, 3, "15 repetições para cada perna, sem peso", true));
-        exercisesPotencia.add(new GymExercice("Levantamento Terra", 8, 5, "Carga moderada e velocidade acelerada", false));
-        exercisesPotencia.add(new GymExercice("Flexão de Braço", 20, 4, "Flexões saltando", false));
-        exercisesPotencia.add(new GymExercice("Afundo com Halteres", 15, 3, "15 repetições para cada perna", false));
-        exercisesPotencia.add(new GymExercice("Agachamento Saltando", 10, 4, "Carga Moderada", false));
+        // --- Template de Treino 2: FULL BODY, 45 min ---
+        List<GymExercice> exercisesFB45 = new ArrayList<>();
+        exercisesFB45.add(new GymExercice("Afundo ", 15, 3, "15 repetições para cada perna, sem peso", true));
+        exercisesFB45.add(new GymExercice("Levantamento Terra", 8, 5, "Carga moderada e velocidade acelerada", false));
+        exercisesFB45.add(new GymExercice("Flexão de Braço", 20, 4, "Flexões saltando", false));
+        exercisesFB45.add(new GymExercice("Afundo com Halteres", 15, 3, "15 repetições para cada perna", false));
+        exercisesFB45.add(new GymExercice("Agachamento Saltando", 10, 4, "Carga Moderada", false));
 
-        GymWorkout treinoPotencia = new GymWorkout("Full-Body", 50, exercisesPotencia);
+        GymWorkout treinoFB45 = new GymWorkout("Full-Body", 45, exercisesFB45);
+        
+        // --- Template de Treino: FULL BODY, 90 min ---
+        List<GymExercice> exercisesFB90 = new ArrayList<>();
+
+        
+        exercisesFB90.add(new GymExercice("Mobilidade Dinâmica", 10, 1, "Rotação de quadris, joelhos, ombros, pass-through com elástico", true));
+        exercisesFB90.add(new GymExercice("Aquecimento com Barra", 10, 2, "2 séries leves de Agachamento, Supino e Terra (apenas a barra)", true));
+        exercisesFB90.add(new GymExercice("Agachamento Livre (Back Squat)", 5, 5, "Carga progressiva, foco em força (70–80% 1RM)", false));
+        exercisesFB90.add(new GymExercice("Supino Reto (Bench Press)", 5, 5, "Carga progressiva, pausa de 1s no peito", false));
+        exercisesFB90.add(new GymExercice("Levantamento Terra (Deadlift)", 3, 5, "Carga moderada/alta, execução controlada", false));
+        exercisesFB90.add(new GymExercice("Desenvolvimento Militar (OHP)", 8, 4, "Controle total, sem impulso de pernas", false));
+        exercisesFB90.add(new GymExercice("Remada Curvada", 8, 4, "Segurar 1s no pico da contração", false));
+        exercisesFB90.add(new GymExercice("Agachamento Frontal", 6, 3, "Foco em quadríceps e core", false));
+        exercisesFB90.add(new GymExercice("Deficit Deadlift", 5, 3, "Força de arrancada no terra", false));
+        exercisesFB90.add(new GymExercice("Pull-Ups (Barra Fixa)", 10, 3, "Se possível, com carga extra", false));
+        exercisesFB90.add(new GymExercice("Ab Wheel / Prancha com carga", 12, 3, "Controle total, foco em core", false));
+        exercisesFB90.add(new GymExercice("Face Pulls", 15, 3, "Fortalecer ombro posterior", false));
+
+        GymWorkout treinoFB90 = new GymWorkout("Full-Body", 90, exercisesFB90);
 
         // Salvando os treinos no repositório em memória
-        gymWorkoutService.save(treinoHipertrofia2);
-        gymWorkoutService.save(treinoPotencia);
+        /*salvando TREINOS div==Full-Body */
+        gymWorkoutService.save(treinoFB45);
+        gymWorkoutService.save(treinoFB60);
+        gymWorkoutService.save(treinoFB90);
+        /*salvando TREINOS div==ABC */
 
         System.out.println(gymWorkoutService.gymWorkoutList().size() + " templates de treinos de ACADEMIA carregados.");
     }
