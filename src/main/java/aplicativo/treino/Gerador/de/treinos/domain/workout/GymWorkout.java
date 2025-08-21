@@ -28,7 +28,7 @@ public class GymWorkout extends Workout{
      */
     public void executarTreinoCompleto() {
         System.out.println("=================================================");
-        System.out.println("INICIANDO TREINO DE ACADEMIA... ";
+        System.out.println("INICIANDO TREINO DE ACADEMIA... ");
         System.out.println("DIVISÃO: " + this.getDiv() + " | DURAÇÃO ESTIMADA: " + this.getDuracao() + " min");
         System.out.println("=================================================");
 
@@ -48,7 +48,7 @@ public class GymWorkout extends Workout{
         boolean foundAquecimento = false;
 
         for (GymExercice ex : gymExerciseList) {
-            if (ex.isAquecimento()) {
+            if (ex.isAquec()) {
                 System.out.printf(">> %s: %d séries de %d repetições. (Obs: %s)\n",
                         ex.getNome(), ex.getSeries(), ex.getReps(),
                         (ex.getObs() != null && !ex.getObs().isBlank()) ? ex.getObs() : "Sem observações.");

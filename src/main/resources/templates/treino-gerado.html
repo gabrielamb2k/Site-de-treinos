@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Treino Gerado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid #333;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #bb86fc;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.2em;
+            color: #fff;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        .workout-details {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 20px;
+        }
+        .workout-details li {
+            background-color: #2c2c2c;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .workout-details li strong {
+            color: #bb86fc;
+        }
+        .exercise-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .exercise-table th, .exercise-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+        .exercise-table th {
+            background-color: #333;
+            color: #bb86fc;
+        }
+        .no-workout {
+            text-align: center;
+            font-size: 1.2em;
+            padding: 50px;
+            background-color: #2c2c2c;
+            border-radius: 8px;
+        }
+        a.back-button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            padding: 10px 25px;
+            background-color: #bb86fc;
+            color: #121212;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        a.back-button:hover {
+            background-color: #a166f7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Bloco para exibir o treino SE ele for encontrado -->
+    <div th:if="${workout}">
+        <h1>Seu Treino Personalizado</h1>
+        <h2 th:text="${workout.getDiv()} + ' - ' + ${workout.getDuracao()} + ' min'">
+            Detalhes do Treino
+        </h2>
+
+        <!-- NOVO: Bloco para exibir Treino de Academia (GymWorkout) -->
+        <div th:if="${workout instanceof T(aplicativo.treino.Gerador.de.treinos.domain.workout.GymWorkout)}">
+            <table class="exercise-table">
+                <thead>
+                <tr>
+                    <th>Exercício</th>
+                    <th>Séries</th>
+                    <th>Reps</th>
+                    <th>Observação</th>
+                    <th>Aquecimento?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ex : ${workout.gymExerciseList}">
+                    <td th:text="${ex.nome}"></td>
+                    <td th:text="${ex.series}"></td>
+                    <td th:text="${ex.reps}"></td>
+                    <td th:text="${ex.obs}"></td>
+                    <td th:text="${ex.aquec ? 'Sim' : 'Não'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Bloco para exibir Treino Híbrido (HybridWorkout) -->
+        <div th:if="${workout instanceof T(aplicativo.treino.Gerador.de.treinos.domain.workout.HybridWorkout)}">
+            <ul class="workout-details">
+                <li><strong>Tipo:</strong> <span th:text="${workout.type}"></span></li>
+            </ul>
+            <table class="exercise-table">
+                <thead>
+                <tr>
+                    <th>Exercício</th>
+                    <th>Séries</th>
+                    <th>Reps</th>
+                    <th>Observação</th>
+                    <th>Aeróbico/Cardio</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ex : ${workout.hybridExerciseList}">
+                    <td th:text="${ex.nome}"></td>
+                    <td th:text="${ex.series}"></td>
+                    <td th:text="${ex.reps}"></td>
+                    <td th:text="${ex.obs}"></td>
+                    <td th:text="${ex.aerobic}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Bloco para exibir uma mensagem SE NENHUM treino for encontrado -->
+    <div th:if="${workout == null}" class="no-workout">
+        <h1>Oops!</h1>
+        <p>Não foi possível encontrar um treino com as especificações selecionadas.</p>
+    </div>
+
+    <a th:href="@{/workout/generator}" class="back-button">Voltar</a>
+
+</div>
+
+</body>
+</html>
