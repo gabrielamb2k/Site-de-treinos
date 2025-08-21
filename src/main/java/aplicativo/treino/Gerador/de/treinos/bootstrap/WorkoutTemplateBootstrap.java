@@ -3,6 +3,11 @@ package aplicativo.treino.Gerador.de.treinos.bootstrap;
 import aplicativo.treino.Gerador.de.treinos.domain.exercise.HybridExercise;
 import aplicativo.treino.Gerador.de.treinos.domain.workout.HybridWorkout;
 import aplicativo.treino.Gerador.de.treinos.service.HybridWorkoutService;
+
+import aplicativo.treino.Gerador.de.treinos.domain.exercise.GymExercice;
+import aplicativo.treino.Gerador.de.treinos.domain.workout.GymWorkout;
+import aplicativo.treino.Gerador.de.treinos.service.GymWorkoutService;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +18,11 @@ import java.util.List;
 public class WorkoutTemplateBootstrap implements CommandLineRunner {
 
     private final HybridWorkoutService hybridWorkoutService;
+    private final GymWorkoutService gymWorkoutService;
 
-    public WorkoutTemplateBootstrap(HybridWorkoutService hybridWorkoutService){
+    public WorkoutTemplateBootstrap(HybridWorkoutService hybridWorkoutService,GymWorkoutService gymWorkoutService){
         this.hybridWorkoutService=hybridWorkoutService;
+        this.gymWorkoutService = gymWorkoutService;
     }
 
     @Override
@@ -57,5 +64,44 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
         hybridWorkoutService.save(treinoCondicionamento);
 
         System.out.println(hybridWorkoutService.hybridWorkoutList().size() + " templates de treinos híbridos carregados.");
+
+        // --- Carregando templates de treinos não híbridos ---
+        System.out.println("Carregando templates de treinos não híbridos...");
+
+         // --- Template de Treino 1: Hipertrofia ---
+        List<GymExercice> exercisesHipertrofia = new ArrayList<>();
+        exercisesHipertrofia.add(new GymExercice("Supino Reto", 15, 3, "Somente com a barra", true));
+        exercisesHipertrofia.add(new GymExercice("Agachamento Livre", 12, 4, "Foco na execução lenta e controlada", false));
+        exercisesHipertrofia.add(new GymExercice("Supino Reto", 12, 4, "Pegada um pouco mais aberta que a largura dos ombros", false));
+        exercisesHipertrofia.add(new GymExercice("Remada Curvada", 12, 4, "Manter a coluna ereta durante todo o movimento", false));
+        exercisesHipertrofia.add(new GymExercice("Desenvolvimento Militar", 15, 3, "Executar em pé para maior ativação do core", false));
+        exercisesHipertrofia.add(new GymExercice("Abdominal infra", 60, 3, "Com as mão no Glúteo", false));
+
+        GymWorkout treinoHipertrofia = new GymWorkout(
+                "Full Body",
+                60,
+                exercisesHipertrofia
+        );
+
+        // --- Template de Treino 2: Potencia ---
+        List<GymExercice> exercisesPotencia = new ArrayList<>();
+        exercisesPotencia.add(new GymExercice("Afundo ", 15, 3, "15 repetições para cada perna, sem peso", true));
+        exercisesPotencia.add(new GymExercice("Levantamento Terra", 8, 5, "Carga moderada e velocidade acelerada", false));
+        exercisesPotencia.add(new GymExercice("Flexão de Braço", 20, 4, "Flexões saltando", false));
+        exercisesPotencia.add(new GymExercice("Afundo com Halteres", 15, 3, "15 repetições para cada perna", false));
+        exercisesPotencia.add(new GymExercice("Agachamento Saltando", 10, 4, "Carga Moderada", false));
+    
+
+        GymWorkout treinoPotencia = new GymWorkout(
+                "Full Body",
+                50,
+                exercisesPotencia
+        );
+
+        // Salvando os treinos no repositório em memória
+        gymWorkoutService.save(treinoHipertrofia);
+        gymWorkoutService.save(treinoPotencia);
+
+        System.out.println(gymWorkoutService.gymWorkoutList().size() + " templates de treinos não híbridos carregados.");
     }
 }
