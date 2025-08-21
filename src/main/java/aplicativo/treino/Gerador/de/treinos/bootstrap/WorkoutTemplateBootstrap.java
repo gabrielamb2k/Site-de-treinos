@@ -69,38 +69,39 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
         System.out.println("Carregando templates de treinos não híbridos...");
 
          // --- Template de Treino 1: Hipertrofia ---
-        List<GymExercice> exercisesHipertrofia2 = new ArrayList<>();
+        List<GymExercice> exercisesBodyBuilder = new ArrayList<>();
         exercisesHipertrofia2.add(new GymExercice("Supino Reto", 15, 3, "Somente com a barra", true));
         exercisesHipertrofia2.add(new GymExercice("Agachamento Livre", 12, 4, "Foco na execução lenta e controlada", false));
         exercisesHipertrofia2.add(new GymExercice("Supino Reto", 12, 4, "Pegada um pouco mais aberta que a largura dos ombros", false));
         exercisesHipertrofia2.add(new GymExercice("Remada Curvada", 12, 4, "Manter a coluna ereta durante todo o movimento", false));
         exercisesHipertrofia2.add(new GymExercice("Desenvolvimento Militar", 15, 3, "Executar em pé para maior ativação do core", false));
         exercisesHipertrofia2.add(new GymExercice("Abdominal infra", 60, 3, "Com as mão no Glúteo", false));
-
-        GymWorkout treinoHipertrofia2 = new GymWorkout(
+        // --- para Full Body 60 min: treino para BodyBuilders ----
+        GymWorkout treinoBodyBuilder = new GymWorkout(
                 "Full Body",
                 60,
                 exercisesHipertrofia2
         );
 
-        // --- Template de Treino 2: Potencia ---
-        List<GymExercice> exercisesPotencia = new ArrayList<>();
+        // --- Template de Treino 2: para atletas de outras modalidades ---
+        List<GymExercice> exercisesAtleta = new ArrayList<>();
         exercisesPotencia.add(new GymExercice("Afundo ", 15, 3, "15 repetições para cada perna, sem peso", true));
         exercisesPotencia.add(new GymExercice("Levantamento Terra", 8, 5, "Carga moderada e velocidade acelerada", false));
         exercisesPotencia.add(new GymExercice("Flexão de Braço", 20, 4, "Flexões saltando", false));
         exercisesPotencia.add(new GymExercice("Afundo com Halteres", 15, 3, "15 repetições para cada perna", false));
         exercisesPotencia.add(new GymExercice("Agachamento Saltando", 10, 4, "Carga Moderada", false));
     
-
-        GymWorkout treinoPotencia = new GymWorkout(
+        // --- para Full Body 45 min, treino para atletas de outras modalidades ----
+        GymWorkout treinoAtleta = new GymWorkout(
                 "Full Body",
-                50,
+                45,
                 exercisesPotencia
         );
 
+
         // Salvando os treinos no repositório em memória
-        gymWorkoutService.save(treinoHipertrofia2);
-        gymWorkoutService.save(treinoPotencia);
+        gymWorkoutService.save(treinoBodyBuilder);
+        gymWorkoutService.save(treinoAtleta);
 
         System.out.println(gymWorkoutService.gymWorkoutList().size() + " templates de treinos não híbridos carregados.");
     }
