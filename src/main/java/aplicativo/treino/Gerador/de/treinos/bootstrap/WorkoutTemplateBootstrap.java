@@ -31,11 +31,132 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
     }
 
     private void loadHybridWorkouts() {
+
+        // ===============================
+        // DIVISÃO UPPER-LOWER - TREINO UPPER (Superior)
+        // ===============================
+
+        // Upper-Lower-Upper - 45 minutos
+        List<HybridExercise> exercisesUpperLowerUpper45 = new ArrayList<>();
+        exercisesUpperLowerUpper45.add(new HybridExercise("Aquecimento", 5, 1, "Mobilidade articular", "Ativação"));
+        exercisesUpperLowerUpper45.add(new HybridExercise("Supino Reto", 12, 3, "Composto principal", "Descanso: 2min"));
+        exercisesUpperLowerUpper45.add(new HybridExercise("Puxada Frontal", 12, 3, "Antagonista", "Descanso: 90s"));
+        exercisesUpperLowerUpper45.add(new HybridExercise("Desenvolvimento", 10, 3, "Ombros", "Descanso: 90s"));
+        exercisesUpperLowerUpper45.add(new HybridExercise("Rosca + Tríceps", 12, 2, "Bi-set", "Descanso: 60s"));
+        exercisesUpperLowerUpper45.add(new HybridExercise("HIIT", 10, 1, "Finalização", "Alta intensidade"));
+        hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 45, exercisesUpperLowerUpper45, "Superior - Rápido e Eficiente"));
+
+        // Upper-Lower-Upper - 60 minutos
+        List<HybridExercise> exercisesUpperLowerUpper60 = new ArrayList<>();
+        exercisesUpperLowerUpper60.add(new HybridExercise("Aquecimento", 8, 1, "5 min cardio + mobilidade", "Preparação"));
+        exercisesUpperLowerUpper60.add(new HybridExercise("Supino Inclinado", 10, 4, "Peito superior", "Descanso: 2min"));
+        exercisesUpperLowerUpper60.add(new HybridExercise("Remada Curvada", 10, 4, "Costas", "Descanso: 2min"));
+        exercisesUpperLowerUpper60.add(new HybridExercise("Desenvolvimento", 10, 3, "Ombro anterior", "Descanso: 90s"));
+        exercisesUpperLowerUpper60.add(new HybridExercise("Puxada Triângulo", 12, 3, "Dorsal", "Descanso: 90s"));
+        exercisesUpperLowerUpper60.add(new HybridExercise("Elevação Lateral", 12, 3, "Ombro medial", "Descanso: 60s"));
+        exercisesUpperLowerUpper60.add(new HybridExercise("Rosca Direta", 12, 3, "Bíceps", "Descanso: 60s"));
+        exercisesUpperLowerUpper60.add(new HybridExercise("Tríceps Pulley", 12, 3, "Tríceps", "Descanso: 60s"));
+        hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 60, exercisesUpperLowerUpper60, "Superior - Volume Moderado"));
+
+        // Upper-Lower-Upper - 90 minutos
+        List<HybridExercise> exercisesUpperLowerUpper90 = new ArrayList<>();
+        exercisesUpperLowerUpper90.add(new HybridExercise("Aquecimento", 10, 1, "Preparação completa", "Cardio + mobilidade"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Supino Reto", 8, 4, "Força", "Descanso: 2min"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Puxada Frontal", 8, 4, "Largura", "Descanso: 2min"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Supino Inclinado", 10, 4, "Peito superior", "Descanso: 2min"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Remada Cavalinho", 10, 4, "Espessura", "Descanso: 2min"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Desenvolvimento", 10, 3, "Ombros", "Descanso: 90s"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Elevação Lateral", 12, 3, "Medial", "Descanso: 60s"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Elevação Posterior", 12, 3, "Posterior", "Descanso: 60s"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Rosca Direta", 10, 3, "Bíceps", "Descanso: 90s"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Rosca Martelo", 12, 3, "Braquial", "Descanso: 60s"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Tríceps Testa", 10, 3, "Cabeça longa", "Descanso: 90s"));
+        exercisesUpperLowerUpper90.add(new HybridExercise("Tríceps Pulley", 12, 3, "Definição", "Descanso: 60s"));
+        hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 90, exercisesUpperLowerUpper90, "Superior - Volume Alto Completo"));
+
+        // ===============================
+        // DIVISÃO UPPER-LOWER - TREINO LOWER (Inferior)
+        // ===============================
+
+        // Upper-Lower-Lower - 45 minutos
+        List<HybridExercise> exercisesUpperLowerLower45 = new ArrayList<>();
+        exercisesUpperLowerLower45.add(new HybridExercise("Aquecimento Pernas", 5, 1, "Mobilidade pernas", "Ativação"));
+        exercisesUpperLowerLower45.add(new HybridExercise("Agachamento Livre", 12, 4, "Composto principal", "Descanso: 2min"));
+        exercisesUpperLowerLower45.add(new HybridExercise("Stiff", 12, 3, "Posterior", "Descanso: 90s"));
+        exercisesUpperLowerLower45.add(new HybridExercise("Leg Press", 15, 3, "Quadríceps", "Descanso: 90s"));
+        exercisesUpperLowerLower45.add(new HybridExercise("Panturrilha", 20, 3, "Gastrocnêmio", "Descanso: 60s"));
+        exercisesUpperLowerLower45.add(new HybridExercise("HIIT Pernas", 10, 1, "Finalização", "Burpees + agachamentos"));
+        hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 45, exercisesUpperLowerLower45, "Inferior - Eficiente"));
+
+        // Upper-Lower-Lower - 60 minutos
+        List<HybridExercise> exercisesUpperLowerLower60 = new ArrayList<>();
+        exercisesUpperLowerLower60.add(new HybridExercise("Aquecimento", 8, 1, "Cardio + mobilidade", "Preparação"));
+        exercisesUpperLowerLower60.add(new HybridExercise("Agachamento Livre", 10, 4, "Força", "Descanso: 2min"));
+        exercisesUpperLowerLower60.add(new HybridExercise("Stiff", 10, 4, "Posterior", "Descanso: 2min"));
+        exercisesUpperLowerLower60.add(new HybridExercise("Leg Press 45°", 12, 4, "Quadríceps", "Descanso: 2min"));
+        exercisesUpperLowerLower60.add(new HybridExercise("Afundo", 12, 3, "Unilateral", "Descanso: 90s"));
+        exercisesUpperLowerLower60.add(new HybridExercise("Mesa Flexora", 12, 3, "Isquios", "Descanso: 60s"));
+        exercisesUpperLowerLower60.add(new HybridExercise("Panturrilha", 15, 4, "Gastrocnêmio + sóleo", "Descanso: 60s"));
+        exercisesUpperLowerLower60.add(new HybridExercise("Core", 15, 3, "Abdominais", "Variados"));
+        hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 60, exercisesUpperLowerLower60, "Inferior - Volume Moderado"));
+
+        // Upper-Lower-Lower - 90 minutos
+        List<HybridExercise> exercisesUpperLowerLower90 = new ArrayList<>();
+        exercisesUpperLowerLower90.add(new HybridExercise("Aquecimento Completo", 10, 1, "Preparação total", "Cardio + mobilidade específica"));
+        exercisesUpperLowerLower90.add(new HybridExercise("Agachamento Livre", 8, 5, "Força máxima", "Descanso: 3min"));
+        exercisesUpperLowerLower90.add(new HybridExercise("Stiff", 8, 4, "Posterior completo", "Descanso: 2min"));
+        exercisesUpperLowerLower90.add(new HybridExercise("Leg Press 45°", 10, 5, "Volume quadríceps", "Descanso: 2min"));
+        exercisesUpperLowerLower90.add(new HybridExercise("Agachamento Hack", 12, 4, "Quadríceps isolado", "Descanso: 2min"));
+        exercisesUpperLowerLower90.add(new HybridExercise("Mesa Flexora", 12, 4, "Isquiotibiais", "Descanso: 90s"));
+        exercisesUpperLowerLower90.add(new HybridExercise("Cadeira Extensora", 15, 4, "Quadríceps final", "Descanso: 60s"));
+        hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 90, exercisesUpperLowerUpper90, "Treino A: Superior - Volume Alto"));
+
+
+        // ===============================
+        // DIVISÃO FULL-BODY
+        // ===============================
+
+        // Full-Body - 45 minutos
+        List<HybridExercise> exercisesFullBody45 = new ArrayList<>();
+        exercisesFullBody45.add(new HybridExercise("Aquecimento Dinâmico", 5, 1, "Mobilidade geral", "Corpo todo"));
+        exercisesFullBody45.add(new HybridExercise("Agachamento Livre", 12, 3, "Composto principal", "Descanso: 2min"));
+        exercisesFullBody45.add(new HybridExercise("Supino ou Flexão", 12, 3, "Empurrar", "Descanso: 90s"));
+        exercisesFullBody45.add(new HybridExercise("Remada Curvada", 12, 3, "Puxar", "Descanso: 90s"));
+        exercisesFullBody45.add(new HybridExercise("Prancha", 45, 3, "Core", "45s por série"));
+        exercisesFullBody45.add(new HybridExercise("Burpees", 10, 2, "Condicionamento", "Finalização"));
+        hybridWorkoutService.save(new HybridWorkout("Full-Body", 45, exercisesFullBody45, "Condicionamento Geral - Eficiente"));
+
+        // Full-Body - 60 minutos
+        List<HybridExercise> exercisesFullBody60 = new ArrayList<>();
+        exercisesFullBody60.add(new HybridExercise("Aquecimento", 8, 1, "Cardio + mobilidade", "Preparação"));
+        exercisesFullBody60.add(new HybridExercise("Levantamento Terra", 8, 4, "Composto principal", "Descanso: 2min"));
+        exercisesFullBody60.add(new HybridExercise("Supino Inclinado", 10, 3, "Empurrar superior", "Descanso: 2min"));
+        exercisesFullBody60.add(new HybridExercise("Agachamento", 12, 3, "Empurrar inferior", "Descanso: 2min"));
+        exercisesFullBody60.add(new HybridExercise("Remada", 10, 3, "Puxar", "Descanso: 90s"));
+        exercisesFullBody60.add(new HybridExercise("Desenvolvimento", 10, 3, "Ombros", "Descanso: 90s"));
+        exercisesFullBody60.add(new HybridExercise("Abdominais", 15, 3, "Core", "Variados"));
+        exercisesFullBody60.add(new HybridExercise("Cardio", 10, 1, "Cool down", "Moderado"));
+        hybridWorkoutService.save(new HybridWorkout("Full-Body", 60, exercisesFullBody60, "Força e Condicionamento Equilibrado"));
+
+        // Full-Body - 90 minutos
+        List<HybridExercise> exercisesFullBody90 = new ArrayList<>();
+        exercisesFullBody90.add(new HybridExercise("Aquecimento Completo", 10, 1, "Preparação total", "Cardio + mobilidade específica"));
+        exercisesFullBody90.add(new HybridExercise("Levantamento Terra", 6, 5, "Força máxima", "Descanso: 3min"));
+        exercisesFullBody90.add(new HybridExercise("Agachamento Livre", 8, 4, "Força pernas", "Descanso: 2min"));
+        exercisesFullBody90.add(new HybridExercise("Supino Reto", 8, 4, "Força peito", "Descanso: 2min"));
+        exercisesFullBody90.add(new HybridExercise("Remada Curvada", 8, 4, "Força costas", "Descanso: 2min"));
+        exercisesFullBody90.add(new HybridExercise("Desenvolvimento", 10, 3, "Ombros", "Descanso: 90s"));
+        exercisesFullBody90.add(new HybridExercise("Afundo", 12, 3, "Unilateral", "Descanso: 90s"));
+        exercisesFullBody90.add(new HybridExercise("Rosca + Tríceps", 12, 3, "Braços", "Superset"));
+        exercisesFullBody90.add(new HybridExercise("Core Circuit", 20, 3, "Abdominais variados", "Circuit training"));
+        exercisesFullBody90.add(new HybridExercise("Cardio LISS", 15, 1, "Recuperação", "65% FCmax"));
+        hybridWorkoutService.save(new HybridWorkout("Full-Body", 90, exercisesFullBody90, "Hipertrofia Total - Volume Alto"));
+
     }
 
 
       private void loadGymWorkouts() {
-          private void loadGymWorkouts() {
+
         System.out.println("--- Carregando templates de treinos de ACADEMIA ---");
         /*TREINOS div==Full-Body */
         // --- Template de Treino 1: FUll BODY,60 min ---
@@ -173,5 +294,5 @@ GymWorkout treinoLW90 = new GymWorkout("LW90", 90, exercisesLW90);
               
         System.out.println(gymWorkoutService.gymWorkoutList().size() + " templates de treinos de ACADEMIA carregados.");
     }
-    }
+
 }

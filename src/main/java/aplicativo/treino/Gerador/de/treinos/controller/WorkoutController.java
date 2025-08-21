@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 
 /**
  * Classe de interaçao com o usuario, apos ele fazer o login,
@@ -46,9 +48,9 @@ public class WorkoutController {
      */
     @PostMapping("/generator")
     public String userInformations(@ModelAttribute WorkoutDto informacoes, Model model){
-        Workout genetareWorkout= workoutGenerator.generate(informacoes);
+        List<Workout> generatedPlan= workoutGenerator.generate(informacoes);
 
-        model.addAttribute("workout", genetareWorkout);
+        model.addAttribute("workoutPlan", generatedPlan);
 
         return "treino-gerado";
     }

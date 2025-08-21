@@ -7,7 +7,9 @@ import aplicativo.treino.Gerador.de.treinos.service.GymWorkoutService;
 import aplicativo.treino.Gerador.de.treinos.service.HybridWorkoutService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Classe que vai pegar a persistencia de dados dos treinos ja instanciados
@@ -26,27 +28,23 @@ public class WorkoutGenerator {
 
     /**
      * Classe que vai pegar um treino que estao guardados na memoria das nossa service
-     * Nesse metodo vamos pegar um treino hibrido
-     * Pra começar, pega apenas um treino full body hibrido
+     *  Generate tem um if que pega treinos hibridos
      * @param informacoes, sao as informaceos que o usuario passou no formulario
      * @return retorna um treino com as informacoes que ele passou
-     * @version 1.0
+     * @version 1.1
      */
-    public Workout generate(WorkoutDto informacoes) {
+    public List<Workout> generate(WorkoutDto informacoes) {
 
-        // Pega um treino hibrido e full body
+        // Pega um treino hibrido
         if(informacoes.getTipoDeTreino().equalsIgnoreCase("hibrido")){
 
             // busca no bootstrapTemplate um treino com as informacoes do user
-            Optional<HybridWorkout> workoutOptional = hybridWorkoutService.hybridWorkoutList().stream()
+            return hybridWorkoutService.hybridWorkoutList().stream()
                     .filter(w -> informacoes.getDivisaoDeTreino().equalsIgnoreCase(w.getDiv()))
                     .filter(w -> informacoes.getDuracaoDoTreino().equalsIgnoreCase(String.valueOf(w.getDuracao())))
-                    .findFirst();
+                    .collect(Collectors.toList());
 
-            return workoutOptional.orElse(null);
         }
-
-
         return null;
     }
 }
