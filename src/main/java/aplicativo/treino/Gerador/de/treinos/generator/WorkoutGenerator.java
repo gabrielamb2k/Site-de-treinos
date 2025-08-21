@@ -21,9 +21,11 @@ import java.util.stream.Collectors;
 public class WorkoutGenerator {
 
     private HybridWorkoutService hybridWorkoutService;
+    private GymWorkoutService gymWorkoutService;
 
-    public WorkoutGenerator(HybridWorkoutService hybridWorkoutService) {
+    public WorkoutGenerator(HybridWorkoutService hybridWorkoutService, GymWorkoutService gymWorkoutService) {
         this.hybridWorkoutService = hybridWorkoutService;
+        this.gymWorkoutService = gymWorkoutService;
     }
 
     /**
@@ -36,7 +38,7 @@ public class WorkoutGenerator {
     public List<Workout> generate(WorkoutDto informacoes) {
 
         // Pega um treino hibrido
-        if(informacoes.getTipoDeTreino().equalsIgnoreCase("hibrido")){
+        if (informacoes.getTipoDeTreino().equalsIgnoreCase("hibrido")) {
 
             // busca no bootstrapTemplate um treino com as informacoes do user
             return hybridWorkoutService.hybridWorkoutList().stream()
@@ -44,10 +46,14 @@ public class WorkoutGenerator {
                     .filter(w -> informacoes.getDuracaoDoTreino().equalsIgnoreCase(String.valueOf(w.getDuracao())))
                     .collect(Collectors.toList());
 
-        }else  // pega um treino de somente academia
+        }
+        //Pega um treino somente academia
+        if ("academia".equalsIgnoreCase(informacoes.getTipoDeTreino())) {
             return gymWorkoutService.gymWorkoutList().stream()
                     .filter(w -> informacoes.getDivisaoDeTreino().equalsIgnoreCase(w.getDiv()))
                     .filter(w -> informacoes.getDuracaoDoTreino().equalsIgnoreCase(String.valueOf(w.getDuracao())))
                     .collect(Collectors.toList());
+        }
+        return null;
     }
 }

@@ -36,11 +36,10 @@
         h1 {
             margin-bottom: 30px;
         }
-        /* Estilo para o título de cada bloco de treino (A, B, C) */
         .workout-title {
             font-size: 1.5em;
             color: #fff;
-            margin-top: 40px; /* Adiciona espaço entre os treinos */
+            margin-top: 40px;
             margin-bottom: 20px;
             font-weight: 600;
             border-bottom: 2px solid #bb86fc;
@@ -87,23 +86,43 @@
 
 <div class="container">
 
-    <!-- Verifica se a LISTA workoutPlan não está vazia -->
     <div th:if="${workoutPlan != null and !workoutPlan.isEmpty()}">
         <h1>Seu Plano de Treino Personalizado</h1>
 
-        <!-- Loop para cada TREINO dentro da LISTA workoutPlan -->
         <div th:each="workout : ${workoutPlan}">
 
-            <!-- Título para cada bloco de treino (A, B, C...) -->
-            <h2 class="workout-title" th:text="${workout.type}"></h2>
+            <!-- CORREÇÃO: Lógica do título separada para evitar erro -->
+            <!-- Título para treinos Híbridos (usa o campo 'type') -->
+            <h2 class="workout-title"
+                th:if="${workout instanceof T(aplicativo.treino.Gerador.de.treinos.domain.workout.HybridWorkout)}"
+                th:text="${workout.type}">
+            </h2>
+            <!-- Título para treinos de Academia (usa o campo 'div') -->
+            <h2 class="workout-title"
+                th:if="${workout instanceof T(aplicativo.treino.Gerador.de.treinos.domain.workout.GymWorkout)}"
+                th:text="${workout.div}">
+            </h2>
+
 
             <!-- Bloco para exibir Treino de Academia (GymWorkout) -->
             <div th:if="${workout instanceof T(aplicativo.treino.Gerador.de.treinos.domain.workout.GymWorkout)}">
                 <table class="exercise-table">
-                    <!-- ... (cabeçalho da tabela) ... -->
+                    <thead>
+                    <tr>
+                        <th>Exercício</th>
+                        <th>Séries</th>
+                        <th>Reps</th>
+                        <th>Observação</th>
+                        <th>Aquecimento?</th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <tr th:each="ex : ${workout.gymExerciseList}">
-                        <!-- ... (células da tabela) ... -->
+                        <td th:text="${ex.nome}"></td>
+                        <td th:text="${ex.series}"></td>
+                        <td th:text="${ex.reps}"></td>
+                        <td th:text="${ex.obs}"></td>
+                        <td th:text="${ex.aquec ? 'Sim' : 'Não'}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -135,7 +154,6 @@
         </div>
     </div>
 
-    <!-- Bloco para exibir uma mensagem SE a LISTA estiver vazia -->
     <div th:if="${workoutPlan == null or workoutPlan.isEmpty()}" class="no-workout">
         <h1>Oops!</h1>
         <p>Não foi possível encontrar um plano de treino com as especificações selecionadas.</p>

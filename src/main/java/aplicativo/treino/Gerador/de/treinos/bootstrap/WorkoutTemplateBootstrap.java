@@ -45,7 +45,7 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
             up45.add(new HybridExercise("Superset: Elevação Lateral + Face Pull", 12, 3, "Ombro/Posterior", "Bi-set, descanso 60s"));
             up45.add(new HybridExercise("Circuito Cond.: Burpees / Kettlebell Swing", 8, 3, "Condicionamento", "EMOM ou AMRAP 6-8min"));
             up45.add(new HybridExercise("Core - Prancha", 45, 1, "Estabilidade", "45s x 3 com 30s descanso"));
-            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 45,up45, "Treino A: Superior - Rápido"));
+            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 45,up45, "Upper"));
 
 
         // UPPER - 60 minutos (equilíbrio força/hypertrofia + conditioning)
@@ -57,7 +57,7 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
             up60.add(new HybridExercise("Rosca Direta / Tríceps - Superset", 10, 3, "Arms", "Bi-set, 60s descanso"));
             up60.add(new HybridExercise("Circuito MetCon: Remos + Slam Ball", 10, 1, "Condicionamento", "AMRAP 10min"));
             up60.add(new HybridExercise("Core - L-Sit / Ab-wheel", 10, 2, "Core", "Técnica e resistência"));
-            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 60, up60, "Treino A: Superior - Padrão"));
+            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 60, up60, "Upper"));
 
 
         // UPPER - 90 minutos (volume maior, foco em força + hipertrofia + conditioning localizado)
@@ -69,7 +69,7 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
             up90.add(new HybridExercise("Superset de Bíceps/Tríceps", 10, 4, "Braços", "60s descanso"));
             up90.add(new HybridExercise("MetCon Longo", 12, 1, "Condicionamento", "Intervalado 12-15 min (ex: 4x(250m remo + 12 cal bike))"));
             up90.add(new HybridExercise("Accessory & Mobilidade", 8, 2, "Alongamento/Recuperação", "Foam rolling + mobilidade"));
-            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 90, up90, "Treino A: Superior - Volume Alto"));
+            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 90, up90, "Upper"));
 
     /* ============================
        LOWER (Inferior) - Hybrid
@@ -86,7 +86,7 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
             // caso o construtor não aceite o comentário acima, remova a última linha acima
             // Para evitar compilação, vamos usar uma alternativa sem comentário:
             lw45.add(new HybridExercise("Core - Pallof Press", 10, 2, "Estabilidade", "Controle"));
-            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 45, lw45, "Treino B: Inferior - Eficiente"));
+            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 45, lw45, "Lower"));
 
             // LOWER - 60 minutos (equilíbrio força/condicionamento)
             List<HybridExercise> lw60 = new ArrayList<>();
@@ -96,7 +96,7 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
             lw60.add(new HybridExercise("Lunge Caminhando - Volume", 10, 3, "Glúteo/Quadríceps", "60-90s descanso"));
             lw60.add(new HybridExercise("Kettlebell Swing / Sled Push", 12, 3, "Condicionamento/Explosão", "AMRAP curto"));
             lw60.add(new HybridExercise("Core - Elevação de Pernas", 12, 3, "Core", "Resistência"));
-            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 60, lw60, "Treino B: Inferior - Padrão"));
+            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 60, lw60, "Lower"));
 
 
         // LOWER - 90 minutos (volume e técnica)
@@ -107,7 +107,7 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
             lw90.add(new HybridExercise("Step-up / Bulgarian Split", 10, 4, "Unilateral", "Equilíbrio e força"));
             lw90.add(new HybridExercise("Circuito Condicional Longo", 15, 1, "Condicionamento", "EMOM/AMRAP 12-15min"));
             lw90.add(new HybridExercise("Recovery/Mobilidade", 10, 1, "Recuperação", "Foam roll + alongamento"));
-            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 90, lw90, "Treino B: Inferior - Volume Alto"));
+            hybridWorkoutService.save(new HybridWorkout("Upper-Lower", 90, lw90, "Lower"));
 
 
     /* ============================
@@ -144,7 +144,7 @@ public class WorkoutTemplateBootstrap implements CommandLineRunner {
             fb90.add(new HybridExercise("Bench Press - Volume", 8, 4, "Peito/Hipertrofia", "90s descanso"));
             fb90.add(new HybridExercise("Circuito Cond: Rown+Ski+Box", 15, 1, "Condicionamento", "Interval 15min"));
             fb90.add(new HybridExercise("Accessory + Mobilidade Profunda", 12, 2, "Recuperação", "Foam roll + alongamento longo"));
-        hybridWorkoutService.save(new HybridWorkout("Full-Body", 90, fb90, "Hipertrofia Total - Volume Alto"));
+            hybridWorkoutService.save(new HybridWorkout("Full-Body", 90, fb90, "Hipertrofia Total - Volume Alto"));
 
 
         System.out.println(hybridWorkoutService.hybridWorkoutList().size() + " templates de treinos híbridos carregados.");
@@ -208,7 +208,7 @@ exercisesUP45.add(new GymExercice("Supino Inclinado com Halteres", 12, 3, "Ampli
 exercisesUP45.add(new GymExercice("Desenvolvimento Militar", 12, 3, "Em pé, ativando core", false));
 exercisesUP45.add(new GymExercice("Elevação Lateral", 15, 3, "Trabalhar ombro medial", false));
 
-GymWorkout treinoUP45 = new GymWorkout("UP45", 45, exercisesUP45);
+GymWorkout treinoUP45 = new GymWorkout("Upper-Lower", 45, exercisesUP45);
 
 
 // --- Upper 60 min ---
@@ -221,7 +221,7 @@ exercisesUP60.add(new GymExercice("Rosca Direta com Barra", 12, 3, "Execução c
 exercisesUP60.add(new GymExercice("Rosca Martelo", 12, 3, "Foco no braquiorradial", false));
 exercisesUP60.add(new GymExercice("Face Pull", 15, 3, "Fortalecer ombro posterior", false));
 
-GymWorkout treinoUP60 = new GymWorkout("UP60", 60, exercisesUP60);
+GymWorkout treinoUP60 = new GymWorkout("Upper-Lower", 60, exercisesUP60);
 
 
 // --- Upper 90 min ---
@@ -236,7 +236,7 @@ exercisesUP90.add(new GymExercice("Face Pull", 15, 3, "Fortalecer ombro posterio
 exercisesUP90.add(new GymExercice("Rosca Direta com Barra", 12, 3, "Execução controlada", false));
 exercisesUP90.add(new GymExercice("Rosca Martelo", 12, 3, "Foco no braquiorradial", false));
 
-GymWorkout treinoUP90 = new GymWorkout("UP90", 90, exercisesUP90);
+GymWorkout treinoUP90 = new GymWorkout("Upper-Lower", 90, exercisesUP90);
 
 
 // --- Lower 45 min → agora LW45 ---
@@ -247,7 +247,7 @@ exercisesLW45.add(new GymExercice("Avanço (Afundo com Halteres)", 12, 3, "12 re
 exercisesLW45.add(new GymExercice("Elevação de Panturrilhas", 15, 3, "Em pé ou sentado", false));
 exercisesLW45.add(new GymExercice("Abdominal Infra", 15, 3, "Com as mãos sob o glúteo", false));
 
-GymWorkout treinoLW45 = new GymWorkout("LW45", 45, exercisesLW45);
+GymWorkout treinoLW45 = new GymWorkout("Upper-Lower", 45, exercisesLW45);
 
 
 // --- Lower 60 min → LW60 ---
@@ -259,7 +259,7 @@ exercisesLW60.add(new GymExercice("Cadeira Extensora", 15, 3, "Quadríceps", fal
 exercisesLW60.add(new GymExercice("Cadeira Flexora", 12, 3, "Posteriores", false));
 exercisesLW60.add(new GymExercice("Elevação de Panturrilhas", 20, 3, "Em pé ou sentado", false));
 
-GymWorkout treinoLW60 = new GymWorkout("LW60", 60, exercisesLW60);
+GymWorkout treinoLW60 = new GymWorkout("Upper-Lower", 60, exercisesLW60);
 
 
 // --- Lower 90 min → LW90 ---
@@ -275,7 +275,7 @@ exercisesLW90.add(new GymExercice("Abdominal Infra", 20, 3, "Com as mãos sob o 
 exercisesLW90.add(new GymExercice("Prancha", 60, 3, "Segurar 60 segundos", false));
 exercisesLW90.add(new GymExercice("Abdominal com Peso", 15, 3, "Foco em core", false));
 
-GymWorkout treinoLW90 = new GymWorkout("LW90", 90, exercisesLW90);
+GymWorkout treinoLW90 = new GymWorkout("Upper-Lower", 90, exercisesLW90);
 
         // Salvando os treinos no repositório em memória
         /*salvando TREINOS div==Full-Body */
