@@ -33,19 +33,19 @@ public class WorkoutGenerator {
      * @version 1.0
      */
     public Workout generate(WorkoutDto informacoes) {
-        System.out.println("Gerando treino para: " + informacoes.toString());
 
         // Pega um treino hibrido e full body
-        if ("hibrido".equalsIgnoreCase(informacoes.getTipoDeTreino()) &&
-                "full-body".equalsIgnoreCase(informacoes.getDivisaoDeTreino())) {
+        if(informacoes.getTipoDeTreino().equalsIgnoreCase("hibrido")){
 
             // busca no bootstrapTemplate um treino com as informacoes do user
             Optional<HybridWorkout> workoutOptional = hybridWorkoutService.hybridWorkoutList().stream()
-                    .filter(w -> "Full Body".equalsIgnoreCase(w.getDiv()))
+                    .filter(w -> informacoes.getDivisaoDeTreino().equalsIgnoreCase(w.getDiv()))
+                    .filter(w -> informacoes.getDuracaoDoTreino().equalsIgnoreCase(String.valueOf(w.getDuracao())))
                     .findFirst();
 
             return workoutOptional.orElse(null);
         }
+
 
         return null;
     }
