@@ -5,7 +5,7 @@ import aplicativo.treino.Gerador.de.treinos.repository.GymWorkoutRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/*Service de GymWorkout*/
 @Service
 public class GymWorkoutService {
 
