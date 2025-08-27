@@ -17,8 +17,8 @@ public class HybridWorkout extends Workout {
     private String type;
     private List<HybridExercise> hybridExerciseList=new ArrayList<>();
 
-    public HybridWorkout(String div, int duracao, List<HybridExercise> hybridExerciseList, String type) {
-        super(div, duracao);
+    public HybridWorkout(String div, int duracao,LocalDateTime dataGer, List<HybridExercise> hybridExerciseList, String type) {
+        super(div, duracao,dataGer);
         this.hybridExerciseList=hybridExerciseList;
         this.type=type;
     }
