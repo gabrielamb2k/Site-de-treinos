@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Gerador de Treino</title>
-    <!-- Importando a mesma fonte para manter a consistência -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilização geral do corpo da página (idêntica à outra página) */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #121212;
@@ -22,38 +20,31 @@
             padding: 20px;
             box-sizing: border-box;
         }
-
-        /* Container principal do formulário */
         .login-container {
             background-color: #1e1e1e;
             padding: 30px 40px;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 450px; /* Um pouco mais estreito que o gerador */
+            max-width: 450px;
             border: 1px solid #333;
         }
-
-        /* Título principal */
         h1 {
             text-align: center;
             color: #ffffff;
             margin-bottom: 30px;
             font-weight: 600;
         }
-
-        /* Grupo de input (label + campo) */
         .input-group {
             margin-bottom: 20px;
+            position: relative; /* Para a mensagem de erro */
         }
-
         .input-group label {
             display: block;
             margin-bottom: 8px;
             color: #bb86fc;
             font-weight: 500;
         }
-
         .input-group input {
             width: 100%;
             padding: 12px 15px;
@@ -65,13 +56,17 @@
             box-sizing: border-box;
             transition: border-color 0.3s;
         }
-
         .input-group input:focus {
             outline: none;
             border-color: #bb86fc;
         }
-
-        /* Estilo base para os botões */
+        /* NOVO: Estilo para a mensagem de erro */
+        .error-message {
+            color: #ff5555;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none; /* Escondida por defeito */
+        }
         button {
             width: 100%;
             padding: 15px;
@@ -82,26 +77,23 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.3s;
         }
-
-        /* Botão de Entrar */
         .btn-login {
             color: #121212;
             background: linear-gradient(90deg, #bb86fc, #a166f7);
             margin-bottom: 15px;
         }
-
         .btn-login:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(187, 134, 252, 0.3);
         }
-
     </style>
 </head>
 <body>
 
 <div class="login-container">
     <h1>Bem-vindo de volta!</h1>
-    <form action="/login" method="post">
+    <!-- Adicionado um ID ao formulário para o JavaScript -->
+    <form id="login-form" action="/login" method="post">
         <!-- Campo Nome -->
         <div class="input-group">
             <label for="name">Nome:</label>
@@ -111,6 +103,8 @@
         <div class="input-group">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com" required>
+            <!-- NOVO: Mensagem de erro para o email -->
+            <div id="email-error" class="error-message">Por favor, insira um email com um domínio válido (ex: .com, .br).</div>
         </div>
 
         <!-- Botão de Login -->
@@ -118,6 +112,36 @@
 
     </form>
 </div>
+
+<!-- NOVO: Script de validação do email -->
+<script>
+    // Seleciona o formulário e o campo de email
+    const loginForm = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+
+    // Adiciona um "ouvinte" para o evento de submissão do formulário
+    loginForm.addEventListener('submit', function(event) {
+        // Pega o valor do email e remove espaços em branco
+        const emailValue = emailInput.value.trim();
+
+        // Expressão regular para validar o email
+        // Verifica se tem algo antes do @, algo depois, um ponto, e pelo menos 2 letras no final
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        // Testa se o email corresponde à expressão regular
+        if (!emailRegex.test(emailValue)) {
+            // Se o email for inválido:
+            // 1. Mostra a mensagem de erro
+            emailError.style.display = 'block';
+            // 2. Impede o envio do formulário
+            event.preventDefault();
+        } else {
+            // Se o email for válido, esconde a mensagem de erro
+            emailError.style.display = 'none';
+        }
+    });
+</script>
 
 </body>
 </html>
