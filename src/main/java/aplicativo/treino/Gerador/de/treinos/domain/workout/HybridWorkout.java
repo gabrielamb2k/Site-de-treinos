@@ -5,7 +5,7 @@ import aplicativo.treino.Gerador.de.treinos.domain.exercise.HybridExercise;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Classe para treinos hibridos, nela teremos o tipo de treino e uma lista de
