@@ -3,7 +3,7 @@ import aplicativo.treino.Gerador.de.treinos.domain.exercise.GymExercice;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class GymWorkout extends Workout{
   //lista de exercicios para academia(puxar ferro)
