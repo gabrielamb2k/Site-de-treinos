@@ -61,8 +61,14 @@
             font-size: 1.2em;
             color: #fff;
             margin-top: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 5px; /* Diminuído para dar espaço para a data */
             font-weight: 600;
+        }
+        .workout-date {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-bottom: 15px;
+            display: block;
         }
         .exercise-table {
             width: 100%;
@@ -112,6 +118,7 @@
                     <h3 class="type-title">Treinos Híbridos</h3>
                     <div th:each="workout : ${hybridWorkouts}">
                         <h4 class="workout-title" th:text="${workout.type}"></h4>
+                        <span class="workout-date" th:text="${#temporals.format(workout.dataGer, 'dd/MM/yyyy HH:mm')}"></span>
                         <table class="exercise-table">
                             <thead>
                             <tr>
@@ -142,6 +149,8 @@
                     <h3 class="type-title">Treinos de Academia</h3>
                     <div th:each="workout : ${gymWorkouts}">
                         <h4 class="workout-title" th:text="${workout.div}"></h4>
+                        <span class="workout-date" th:text="${#temporals.format(workout.dataGer, 'dd/MM/yyyy HH:mm')}"></span>
+
                         <table class="exercise-table">
                             <thead>
                             <tr>
@@ -165,7 +174,6 @@
                     </div>
                 </div>
             </th:block>
-
         </div>
     </div>
 

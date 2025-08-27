@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service é a camada de serviço da aplicação
@@ -45,7 +46,12 @@ public class UserService {
      * @param user
      */
     public void saveWorkoutToUser(List<Workout> workoutList,User user){
-        userRepository.saveWorkout(workoutList,user);
+        // Busca o id do usuario na lista de usuarios e adiciona o treino a ele
+        for(User userArmazenado : userRepository.findAll()){
+            if(userArmazenado.getId().equals(user.getId())){
+                userArmazenado.getWorkoutList().addAll(workoutList);
+            }
+        }
     }
 
     /**
@@ -54,6 +60,12 @@ public class UserService {
      * @return lista de treinos
      */
     public List<Workout> workoutList(User user){
-        return userRepository.listWorkout(user);
+        // Busca o user por id e retorna a lista de treinos gerados por ele
+        for(User userArmazenado : userRepository.findAll()){
+            if(userArmazenado.getId().equals(user.getId())){
+                return userArmazenado.getWorkoutList();
+            }
+        }
+        return List.of();
     }
 }

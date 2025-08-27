@@ -16,6 +16,5 @@ public interface UserRepository {
 
     User save(User user);
     Optional<User> findEmail(String email);
-    void saveWorkout(List<Workout> workoutList, User user);
-    List<Workout> listWorkout(User user);
+    List<User> findAll();
 }

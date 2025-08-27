@@ -57,37 +57,15 @@ public class UserRepositoryImpl implements UserRepository{
                 .findFirst();
     }
 
-    /**
-     * Metodo que vai salvar os treinos gerados la na classe WorkoutGenerator
-     * @param newWorkouts
-     * @param user
-     */
-    @Override
-    public void saveWorkout(List<Workout> newWorkouts, User user) {
-        for(int i=0;i<userList.size();i++){
-            if(Objects.equals(userList.get(i).getId(), user.getId())){
-                userList.get(i).getWorkoutList().addAll(newWorkouts);
-            }
-            break;
-        }
-    }
-
 
     /**
-     * Metodo de listagem dos treinos para o usuario
-     * verificar os treinos que ja foram gerados por ele
-     * @param user
-     * @return retorna a lista de treinos que o usuario gerou
-     * se nao gerou nenhuma retorna uma lista vazia
+     * Metodo para pegar a lista de usuarios, util para colocarmos a logica de negocio
+     * para adicionar treinos a ele no user service
+     * @return a lista de usuarios
      */
     @Override
-    public List<Workout> listWorkout(User user) {
-        for(int i=0;i<userList.size();i++){
-            if(Objects.equals(userList.get(i).getId(), user.getId())){
-                return userList.get(i).getWorkoutList();
-            }
-        }
-        return new ArrayList<>();
+    public List<User> findAll() {
+        return userList;
     }
 
 }

@@ -5,18 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 //Herda de WorkoutTemplate
 public abstract class Workout extends WorkoutTemplate {
-  //dataGer== data que o treino foi gerado, implementado para ajudar na criação do historico
-    private LocalDateTime dataGer;
-  
+
   public Workout(String div, int duracao,LocalDateTime dataGer){
-    super(div,duracao);
-    this.dataGer=dataGer;
+    super(div,duracao,dataGer);
   }
-  //somente o get pois o dataGer por padrão será setado por: LocalDateTime.now()
-  public void setData(LocalDateTime dataGer){
-    this.dataGer=dataGer;
-  }
-     public LocalDateTime getData() {
-        return dataGer;
-    }
+
 }
