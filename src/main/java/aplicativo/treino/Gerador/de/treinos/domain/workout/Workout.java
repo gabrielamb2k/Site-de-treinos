@@ -3,6 +3,7 @@ import aplicativo.treino.Gerador.de.treinos.domain.exercise.Exercise;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 //Herda de WorkoutTemplate
 public abstract class Workout extends WorkoutTemplate {
   //dataGer== data que o treino foi gerado, implementado para ajudar na criação do historico
