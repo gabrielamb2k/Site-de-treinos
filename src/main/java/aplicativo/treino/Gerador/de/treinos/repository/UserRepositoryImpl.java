@@ -1,28 +1,25 @@
 package aplicativo.treino.Gerador.de.treinos.repository;
 
 import aplicativo.treino.Gerador.de.treinos.domain.user.User;
+import aplicativo.treino.Gerador.de.treinos.domain.workout.Workout;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Implementação em memória da interface {@link UserRepository}
  * Utilizaremos para simular um banco de dados
- * @version 1.0
+ * Refatorada total na versao 1.1
+ * @version 1.1
  */
 @Repository
 public class UserRepositoryImpl implements UserRepository{
 
     /**
-     * Os dois maps abaixo simulam um banco de dados,
-     * armazenamentoUsers -> armazena o id do usuário e a entidade user
-     * armazenamentoEmails -> salvam os emails dos usuarios, para que não exista repetição
-     * de email
+     * No lugar dos maps, criei apenas uma lista para simplificar
+     * o processo de retornar o treino gerado para o usuario
      */
-    private static final Map<Long, User> armazenamentoUsers = new HashMap<>();
-    private static final Map<String, Long> armazenamentoEmails = new HashMap<>();
+    private static final List<User> userList=new ArrayList<>();
 
     private static Long contador=0L;
 
@@ -36,8 +33,11 @@ public class UserRepositoryImpl implements UserRepository{
         if(user.getId() == null){
             user.setId(contador++);
         }
-        armazenamentoUsers.put(user.getId(), user);
-        armazenamentoEmails.put(user.getEmail(), user.getId());
+        user.setId(contador);
+        user.setName(user.getName());
+        user.setWorkoutList(user.getWorkoutList());
+        user.setEmail(user.getEmail());
+        userList.add(user);
         return user;
     }
 
@@ -48,14 +48,46 @@ public class UserRepositoryImpl implements UserRepository{
      */
     @Override
     public Optional<User> findEmail(String email) {
+        /*
+        Essa stream vai percorrer a lista de usuarios
+        ate achar um usuario que contenha o email passado no parametro
+         */
+        return userList.stream()
+                .filter(u -> u.getEmail().equalsIgnoreCase(email))
+                .findFirst();
+    }
 
-        if(armazenamentoEmails.containsKey(email)){
-            Long userID = armazenamentoEmails.get(email);
-            return Optional.ofNullable(armazenamentoUsers.get(userID));
+    /**
+     * Metodo que vai salvar os treinos gerados la na classe WorkoutGenerator
+     * @param newWorkouts
+     * @param user
+     */
+    @Override
+    public void saveWorkout(List<Workout> newWorkouts, User user) {
+        for(int i=0;i<userList.size();i++){
+            if(Objects.equals(userList.get(i).getId(), user.getId())){
+                userList.get(i).getWorkoutList().addAll(newWorkouts);
+            }
+            break;
         }
+    }
 
-        return Optional.empty();
 
+    /**
+     * Metodo de listagem dos treinos para o usuario
+     * verificar os treinos que ja foram gerados por ele
+     * @param user
+     * @return retorna a lista de treinos que o usuario gerou
+     * se nao gerou nenhuma retorna uma lista vazia
+     */
+    @Override
+    public List<Workout> listWorkout(User user) {
+        for(int i=0;i<userList.size();i++){
+            if(Objects.equals(userList.get(i).getId(), user.getId())){
+                return userList.get(i).getWorkoutList();
+            }
+        }
+        return new ArrayList<>();
     }
 
 }

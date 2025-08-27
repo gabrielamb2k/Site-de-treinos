@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Treino</title>
-    <!-- Importando uma fonte do Google para um visual mais moderno -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilização geral do corpo da página */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #121212; /* Fundo escuro */
-            color: #e0e0e0; /* Texto claro */
+            background-color: #121212;
+            color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,47 +20,53 @@
             padding: 20px;
             box-sizing: border-box;
         }
-
-        /* Container principal do formulário */
         .workout-container {
-            background-color: #1e1e1e; /* Cor de fundo do card */
+            background-color: #1e1e1e;
             padding: 30px 40px;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
             width: 100%;
             max-width: 500px;
             border: 1px solid #333;
+            position: relative; /* Para posicionar o botão de histórico */
         }
-
-        /* Título principal */
+        /* NOVO: Estilo para o botão de histórico */
+        .history-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 12px;
+            background-color: #333;
+            color: #bb86fc;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .history-button:hover {
+            background-color: #444;
+        }
         h1 {
             text-align: center;
             color: #ffffff;
             margin-bottom: 30px;
             font-weight: 600;
         }
-
-        /* Estilo para cada etapa do formulário */
         .form-step {
             margin-bottom: 25px;
         }
-
-        /* Título de cada pergunta */
         .form-step h2 {
             font-size: 18px;
             margin-bottom: 15px;
-            color: #bb86fc; /* Cor de destaque (roxo) */
+            color: #bb86fc;
             font-weight: 500;
         }
-
-        /* Container para as opções de rádio */
         .options-container {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
-
-        /* Estilo para cada opção (label) */
         .option-label {
             background-color: #2c2c2c;
             border: 2px solid #444;
@@ -72,29 +76,21 @@
             transition: background-color 0.3s, border-color 0.3s;
             display: block;
         }
-
         .option-label:hover {
             background-color: #3a3a3a;
             border-color: #777;
         }
-
-        /* Esconde o input de rádio original */
         .option-label input[type="radio"] {
             display: none;
         }
-
-        /* Muda o estilo do label quando o rádio está selecionado */
         .option-label input[type="radio"]:checked + span {
             font-weight: 600;
             color: #ffffff;
         }
-
         .option-label input[type="radio"]:checked + span::before {
             content: '✔ ';
             color: #bb86fc;
         }
-
-        /* Estilo para o botão "Gerador" */
         #generate-btn {
             width: 100%;
             padding: 15px;
@@ -108,13 +104,10 @@
             margin-top: 20px;
             transition: transform 0.2s, box-shadow 0.3s;
         }
-
         #generate-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(187, 134, 252, 0.3);
         }
-
-        /* Classe para esconder elementos */
         .hidden {
             display: none;
         }
@@ -123,30 +116,31 @@
 <body>
 
 <div class="workout-container">
+
+    <!-- NOVO: Botão para aceder ao histórico -->
+    <a th:href="@{/workout/historico}" class="history-button">Ver Histórico</a>
+
     <h1>Gerador de Treino</h1>
     <form id="workout-form" th:action="@{/workout/generator}" method="post">
         <!-- Etapa 1: Tipo de Treino -->
         <div class="form-step" id="step1">
-            <h2>1. Qual tipo de treino você quer fazer?</h2>
+            <h2>1. Qual tipo de treino quer fazer?</h2>
             <div class="options-container" id="training-type">
                 <label class="option-label">
-                    <!-- CORRIGIDO: name="tipoDeTreino" -->
                     <input type="radio" name="tipoDeTreino" value="hibrido" required>
                     <span>Treino Híbrido</span>
                 </label>
                 <label class="option-label">
-                    <!-- CORRIGIDO: name="tipoDeTreino" -->
                     <input type="radio" name="tipoDeTreino" value="academia" required>
-                    <span>Somente Academia</span>
+                    <span>Apenas Academia</span>
                 </label>
             </div>
         </div>
 
         <!-- Etapa 2: Divisão do Treino -->
         <div class="form-step hidden" id="step2">
-            <h2>2. Qual divisão de treino você prefere?</h2>
+            <h2>2. Qual divisão de treino prefere?</h2>
             <div class="options-container" id="training-split">
-                <!-- CORRIGIDO: name="divisaoDeTreino" -->
                 <label class="option-label"><input type="radio" name="divisaoDeTreino" value="upper-lower" required><span>Superior / Inferior</span></label>
                 <label class="option-label"><input type="radio" name="divisaoDeTreino" value="full-body" required><span>Full Body</span></label>
             </div>
@@ -154,9 +148,8 @@
 
         <!-- Etapa 3: Tempo Disponível -->
         <div class="form-step hidden" id="step3">
-            <h2>3. Quanto tempo você tem disponível por treino?</h2>
+            <h2>3. Quanto tempo tem disponível por treino?</h2>
             <div class="options-container" id="training-time">
-                <!-- CORRIGIDO: name="duracaoDoTreino" -->
                 <label class="option-label"><input type="radio" name="duracaoDoTreino" value="45" required><span>Até 45 minutos</span></label>
                 <label class="option-label"><input type="radio" name="duracaoDoTreino" value="60" required><span>Entre 45 e 60 minutos</span></label>
                 <label class="option-label"><input type="radio" name="duracaoDoTreino" value="90" required><span>Mais de 60 minutos</span></label>
@@ -171,25 +164,21 @@
 </div>
 
 <script>
-    // Seleciona os elementos do DOM
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
     const submitContainer = document.getElementById('submit-container');
 
-    // Adiciona um "ouvinte" para as opções da Etapa 1
     step1.addEventListener('change', () => {
-        step2.classList.remove('hidden'); // Mostra a Etapa 2
+        step2.classList.remove('hidden');
     });
 
-    // Adiciona um "ouvinte" para as opções da Etapa 2
     step2.addEventListener('change', () => {
-        step3.classList.remove('hidden'); // Mostra a Etapa 3
+        step3.classList.remove('hidden');
     });
 
-    // Adiciona um "ouvinte" para as opções da Etapa 3
     step3.addEventListener('change', () => {
-        submitContainer.classList.remove('hidden'); // Mostra o botão Gerador
+        submitContainer.classList.remove('hidden');
     });
 </script>
 

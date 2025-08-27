@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Treinos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid #333;
+        }
+        h1 {
+            text-align: center;
+            color: #bb86fc;
+            margin-bottom: 30px;
+        }
+        .division-card {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .division-title {
+            font-size: 1.8em;
+            color: #bb86fc;
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #555;
+            text-transform: capitalize;
+        }
+        .type-title {
+            font-size: 1.5em;
+            color: #e0e0e0;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .workout-title {
+            font-size: 1.2em;
+            color: #fff;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .exercise-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .exercise-table th, .exercise-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+        .exercise-table th {
+            background-color: #333;
+            color: #bb86fc;
+        }
+        .no-workout {
+            text-align: center;
+            font-size: 1.2em;
+            padding: 50px;
+        }
+        a.back-button {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0;
+            padding: 10px 25px;
+            background-color: #bb86fc;
+            color: #121212;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div th:if="${historicoAgrupado != null and !historicoAgrupado.isEmpty()}">
+        <h1>Seu Histórico de Treinos</h1>
+
+        <div class="division-card" th:each="entry : ${historicoAgrupado}">
+            <h2 class="division-title" th:text="${entry.key}"></h2>
+
+            <!-- SEÇÃO DE TREINOS HÍBRIDOS -->
+            <th:block th:with="hybridWorkouts=${entry.value.?[#this instanceof T(aplicativo.treino.Gerador.de.treinos.domain.workout.HybridWorkout)]}">
+                <div th:if="${!hybridWorkouts.isEmpty()}">
+                    <h3 class="type-title">Treinos Híbridos</h3>
+                    <div th:each="workout : ${hybridWorkouts}">
+                        <h4 class="workout-title" th:text="${workout.type}"></h4>
+                        <table class="exercise-table">
+                            <thead>
+                            <tr>
+                                <th>Exercício</th>
+                                <th>Séries</th>
+                                <th>Reps</th>
+                                <th>Observação</th>
+                                <th>Aeróbico/Cardio</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="ex : ${workout.hybridExerciseList}">
+                                <td th:text="${ex.nome}"></td>
+                                <td th:text="${ex.series}"></td>
+                                <td th:text="${ex.reps}"></td>
+                                <td th:text="${ex.obs}"></td>
+                                <td th:text="${ex.aerobic}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </th:block>
+
+            <!-- SEÇÃO DE TREINOS DE ACADEMIA -->
+            <th:block th:with="gymWorkouts=${entry.value.?[#this instanceof T(aplicativo.treino.Gerador.de.treinos.domain.workout.GymWorkout)]}">
+                <div th:if="${!gymWorkouts.isEmpty()}">
+                    <h3 class="type-title">Treinos de Academia</h3>
+                    <div th:each="workout : ${gymWorkouts}">
+                        <h4 class="workout-title" th:text="${workout.div}"></h4>
+                        <table class="exercise-table">
+                            <thead>
+                            <tr>
+                                <th>Exercício</th>
+                                <th>Séries</th>
+                                <th>Reps</th>
+                                <th>Observação</th>
+                                <th>Aquecimento?</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="ex : ${workout.gymExerciseList}">
+                                <td th:text="${ex.nome}"></td>
+                                <td th:text="${ex.series}"></td>
+                                <td th:text="${ex.reps}"></td>
+                                <td th:text="${ex.obs}"></td>
+                                <td th:text="${ex.aquec ? 'Sim' : 'Não'}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </th:block>
+
+        </div>
+    </div>
+
+    <div th:if="${historicoAgrupado == null or historicoAgrupado.isEmpty()}" class="no-workout">
+        <h1>Histórico Vazio</h1>
+        <p>Você ainda não gerou nenhum treino.</p>
+    </div>
+
+    <a th:href="@{/workout/generator}" class="back-button">Voltar ao Gerador</a>
+
+</div>
+
+</body>
+</html>

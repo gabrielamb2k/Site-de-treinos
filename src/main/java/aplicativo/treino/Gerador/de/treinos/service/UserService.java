@@ -1,9 +1,11 @@
 package aplicativo.treino.Gerador.de.treinos.service;
 
 import aplicativo.treino.Gerador.de.treinos.domain.user.User;
+import aplicativo.treino.Gerador.de.treinos.domain.workout.Workout;
 import aplicativo.treino.Gerador.de.treinos.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -35,5 +37,23 @@ public class UserService {
         }
 
         return userRepository.save(newUser);
+    }
+
+    /**
+     * salva o treino gerado pertencente ao usuario no repositorio
+     * @param workoutList
+     * @param user
+     */
+    public void saveWorkoutToUser(List<Workout> workoutList,User user){
+        userRepository.saveWorkout(workoutList,user);
+    }
+
+    /**
+     * Lista os treinos que o usuario gerou
+     * @param user
+     * @return lista de treinos
+     */
+    public List<Workout> workoutList(User user){
+        return userRepository.listWorkout(user);
     }
 }
