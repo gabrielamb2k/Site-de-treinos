@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 //Herda de WorkoutTemplate
 public abstract class Workout extends WorkoutTemplate {
-  public Workout(String div, int duracao){
-    super(div,duracao);
+  public Workout(String div, int duracao,LocalDateTime dataGer){
+    super(div,duracao,dataGer);
   }
 }
