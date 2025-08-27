@@ -9,8 +9,8 @@ public class GymWorkout extends Workout{
   //lista de exercicios para academia(puxar ferro)
     private List<GymExercice> gymExerciseList = new ArrayList<>();
 
-    public GymWorkout(String div, int duracao, List<GymExercice> gymExerciseList) {
-        super(div, duracao);
+    public GymWorkout(String div, int duracao,LocalDateTime dataGer, List<GymExercice> gymExerciseList) {
+        super(div, duracao, dataGer);
         this.gymExerciseList = gymExerciseList;
     }
 
