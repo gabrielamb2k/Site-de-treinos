@@ -12,13 +12,10 @@ public abstract class WorkoutTemplate {
     private String div;
     // duracao == duracao máxima do treino, de acordo com a resposta do usauario
     private int duracao;
-    //dataGer== data que o treino foi gerado, implementado para ajudar na criação do historico
-    private LocalDateTime dataGer;
     /*builder*/
-    public WorkoutTemplate(String div,int duracao,LocalDateTime dataGer){
+    public WorkoutTemplate(String div,int duracao){
       this.div=div;
       this.duracao=duracao;
-      this.dataGer=dataGer;
       this.exercises= new ArrayList<>();
     }
     /*get.set div*/
@@ -38,12 +35,6 @@ public abstract class WorkoutTemplate {
     }
     public int getDuracao() {
         return duracao;
-    }
-    public void setData(LocalDateTime dataGer){
-        this.dataGer=dataGer;
-    }
-     public LocalDateTime getData() {
-        return dataGer;
     }
     /*methods*/
     //adiciona exercicios à lista de exercicios
