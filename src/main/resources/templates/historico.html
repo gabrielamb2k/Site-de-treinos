@@ -2,189 +2,291 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Compatibilidade com IE/Edge antigos -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Histórico de Treinos</title>
+
+    <!-- Preconnect / Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Theme / taskbar colors -->
+    <meta name="theme-color" content="#121212">
+    <meta name="msapplication-TileColor" content="#121212">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Apple / iOS web app -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Gerador de Treino">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+
+    <!-- Android / Web App manifest -->
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+
+    <!-- Safari pinned tab (SVG) -->
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#a166f7">
+
+    <!-- Meta para navegadores chineses (opcional) -->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+    <!-- Crawlers -->
+    <meta name="robots" content="index,follow">
+
+    <!-- Polyfill para navegadores antigos -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default" defer></script>
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
     <style>
+        :root{
+          --bg: #121212;
+          --card: #1e1e1e;
+          --muted: #e0e0e0;
+          --accent: #bb86fc;
+          --card-2: #2c2c2c;
+          --border: #333;
+        }
+        html,body{height:100%;}
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding: 40px 20px;
-            box-sizing: border-box;
+          font-family: 'Poppins', sans-serif;
+          background-color: var(--bg);
+          color: var(--muted);
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          min-height: 100vh;
+          margin: 0;
+          padding: 40px 20px;
+          box-sizing: border-box;
         }
         .container {
-            background-color: #1e1e1e;
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 800px;
-            border: 1px solid #333;
+          background-color: var(--card);
+          padding: 30px 40px;
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+          width: 100%;
+          max-width: 1000px;
+          border: 1px solid var(--border);
         }
         h1 {
-            text-align: center;
-            color: #bb86fc;
-            margin-bottom: 30px;
+          text-align: center;
+          color: var(--accent);
+          margin-bottom: 30px;
+          font-size: 1.6rem;
         }
         .division-card {
-            background-color: #2c2c2c;
-            border: 1px solid #444;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
+          background-color: var(--card-2);
+          border: 1px solid #444;
+          border-radius: 10px;
+          padding: 20px;
+          margin-bottom: 30px;
         }
         .division-title {
-            font-size: 1.8em;
-            color: #bb86fc;
-            margin-top: 0;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #555;
-            text-transform: capitalize;
+          font-size: 1.6em;
+          color: var(--accent);
+          margin-top: 0;
+          margin-bottom: 20px;
+          padding-bottom: 8px;
+          border-bottom: 2px solid #555;
+          text-transform: capitalize;
         }
         .type-title {
-            font-size: 1.5em;
-            color: #e0e0e0;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-weight: 500;
+          font-size: 1.25em;
+          color: var(--muted);
+          margin-top: 20px;
+          margin-bottom: 12px;
+          font-weight: 500;
         }
         .workout-title {
-            font-size: 1.2em;
-            color: #fff;
-            margin-top: 15px;
-            margin-bottom: 5px; /* Diminuído para dar espaço para a data */
-            font-weight: 600;
+          font-size: 1.15em;
+          color: #fff;
+          margin-top: 12px;
+          margin-bottom: 4px;
+          font-weight: 600;
         }
         .workout-date {
-            font-size: 0.9em;
-            color: #aaa;
-            margin-bottom: 15px;
-            display: block;
+          font-size: 0.9em;
+          color: #aaa;
+          margin-bottom: 12px;
+          display: block;
+        }
+
+        /* Responsividade da tabela */
+        .table-wrap {
+          width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          margin-bottom: 18px;
         }
         .exercise-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+          width: 100%;
+          border-collapse: collapse;
+          min-width: 640px; /* evita colapso em telas muito estreitas */
         }
         .exercise-table th, .exercise-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #444;
+          padding: 12px;
+          text-align: left;
+          border-bottom: 1px solid #444;
+          vertical-align: middle;
         }
         .exercise-table th {
-            background-color: #333;
-            color: #bb86fc;
+          background-color: #333;
+          color: var(--accent);
+          font-weight: 600;
         }
+
         .no-workout {
-            text-align: center;
-            font-size: 1.2em;
-            padding: 50px;
+          text-align: center;
+          font-size: 1.15em;
+          padding: 40px;
+          background-color: var(--card-2);
+          border-radius: 8px;
         }
         a.back-button {
-            display: block;
-            width: fit-content;
-            margin: 40px auto 0;
-            padding: 10px 25px;
-            background-color: #bb86fc;
-            color: #121212;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
+          display: inline-block;
+          width: fit-content;
+          margin: 28px auto 0;
+          padding: 10px 25px;
+          background-color: var(--accent);
+          color: #121212;
+          text-decoration: none;
+          border-radius: 8px;
+          font-weight: 600;
+        }
+        a.back-button:hover, a.back-button:focus { background-color: #a166f7; outline: none; }
+
+        /* Acessibilidade: foco visível */
+        a.back-button:focus,
+        .exercise-table a:focus {
+          box-shadow: 0 0 0 3px rgba(161, 120, 255, 0.15);
+        }
+
+        .muted { color: #cfcfcf; font-size: 0.95em; }
+
+        @media (max-width: 520px) {
+          .container { padding: 20px; }
+          h1 { font-size: 1.3rem; }
+          .division-title { font-size: 1.25rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="container" role="main" aria-labelledby="page-title">
+    <h1 id="page-title">Seu Histórico de Treinos</h1>
 
     <div th:if="${historicoAgrupado != null and !historicoAgrupado.isEmpty()}">
-        <h1>Seu Histórico de Treinos</h1>
-
-        <div class="division-card" th:each="entry : ${historicoAgrupado}">
-            <h2 class="division-title" th:text="${entry.key}"></h2>
+        <div class="division-card" th:each="entry, iterStat : ${historicoAgrupado}">
+            <h2 class="division-title" th:text="${entry.key}" th:id="${'division-' + iterStat.index}">Divisão</h2>
 
             <!-- SEÇÃO DE TREINOS HÍBRIDOS -->
             <th:block th:with="hybridWorkouts=${entry.value.?[#this instanceof T(aplicativo.treino.Gerador.de.treinos.domain.workout.HybridWorkout)]}">
-                <div th:if="${!hybridWorkouts.isEmpty()}">
+                <div th:if="${hybridWorkouts != null and !hybridWorkouts.isEmpty()}">
                     <h3 class="type-title">Treinos Híbridos</h3>
-                    <div th:each="workout : ${hybridWorkouts}">
-                        <h4 class="workout-title" th:text="${workout.type}"></h4>
-                        <span class="workout-date" th:text="${#temporals.format(workout.dataGer, 'dd/MM/yyyy HH:mm')}"></span>
-                        <table class="exercise-table">
-                            <thead>
-                            <tr>
-                                <th>Exercício</th>
-                                <th>Séries</th>
-                                <th>Reps</th>
-                                <th>Observação</th>
-                                <th>Aeróbico/Cardio</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="ex : ${workout.hybridExerciseList}">
-                                <td th:text="${ex.nome}"></td>
-                                <td th:text="${ex.series}"></td>
-                                <td th:text="${ex.reps}"></td>
-                                <td th:text="${ex.obs}"></td>
-                                <td th:text="${ex.aerobic}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div th:each="workout, wi : ${hybridWorkouts}">
+                        <h4 class="workout-title" th:text="${workout.type}" th:id="${'hybrid-' + iterStat.index + '-' + wi.index}">Tipo Híbrido</h4>
+                        <span class="workout-date" th:text="${#temporals.format(workout.dataGer, 'dd/MM/yyyy HH:mm')}">00/00/0000 00:00</span>
+
+                        <div class="table-wrap" role="region" th:aria-labelledby="${'hybrid-' + iterStat.index + '-' + wi.index}">
+                            <table class="exercise-table" summary="Lista de exercícios híbridos com séries, repetições e componente aeróbico">
+                                <caption class="visually-hidden">Exercícios Híbridos</caption>
+                                <thead>
+                                <tr>
+                                    <th scope="col">Exercício</th>
+                                    <th scope="col">Séries</th>
+                                    <th scope="col">Reps</th>
+                                    <th scope="col">Observação</th>
+                                    <th scope="col">Aeróbico/Cardio</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ex : ${workout.hybridExerciseList}">
+                                    <td th:text="${ex.nome}">Nome do exercício</td>
+                                    <td th:text="${ex.series}">3</td>
+                                    <td th:text="${ex.reps}">12</td>
+                                    <td><span class="muted" th:text="${ex.obs}">observação</span></td>
+                                    <td th:text="${ex.aerobic}">Corrida 10min</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </th:block>
 
             <!-- SEÇÃO DE TREINOS DE ACADEMIA -->
             <th:block th:with="gymWorkouts=${entry.value.?[#this instanceof T(aplicativo.treino.Gerador.de.treinos.domain.workout.GymWorkout)]}">
-                <div th:if="${!gymWorkouts.isEmpty()}">
+                <div th:if="${gymWorkouts != null and !gymWorkouts.isEmpty()}">
                     <h3 class="type-title">Treinos de Academia</h3>
-                    <div th:each="workout : ${gymWorkouts}">
-                        <h4 class="workout-title" th:text="${workout.div}"></h4>
-                        <span class="workout-date" th:text="${#temporals.format(workout.dataGer, 'dd/MM/yyyy HH:mm')}"></span>
+                    <div th:each="workout, wi : ${gymWorkouts}">
+                        <h4 class="workout-title" th:text="${workout.div}" th:id="${'gym-' + iterStat.index + '-' + wi.index}">Divisão</h4>
+                        <span class="workout-date" th:text="${#temporals.format(workout.dataGer, 'dd/MM/yyyy HH:mm')}">00/00/0000 00:00</span>
 
-                        <table class="exercise-table">
-                            <thead>
-                            <tr>
-                                <th>Exercício</th>
-                                <th>Séries</th>
-                                <th>Reps</th>
-                                <th>Observação</th>
-                                <th>Aquecimento?</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="ex : ${workout.gymExerciseList}">
-                                <td th:text="${ex.nome}"></td>
-                                <td th:text="${ex.series}"></td>
-                                <td th:text="${ex.reps}"></td>
-                                <td th:text="${ex.obs}"></td>
-                                <td th:text="${ex.aquec ? 'Sim' : 'Não'}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-wrap" role="region" th:aria-labelledby="${'gym-' + iterStat.index + '-' + wi.index}">
+                            <table class="exercise-table" summary="Lista de exercícios de academia com séries, repetições e observações">
+                                <caption class="visually-hidden">Exercícios de Academia</caption>
+                                <thead>
+                                <tr>
+                                    <th scope="col">Exercício</th>
+                                    <th scope="col">Séries</th>
+                                    <th scope="col">Reps</th>
+                                    <th scope="col">Observação</th>
+                                    <th scope="col">Aquecimento?</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ex : ${workout.gymExerciseList}">
+                                    <td th:text="${ex.nome}">Nome do exercício</td>
+                                    <td th:text="${ex.series}">3</td>
+                                    <td th:text="${ex.reps}">8-12</td>
+                                    <td><span class="muted" th:text="${ex.obs}">observação</span></td>
+                                    <td th:text="${ex.aquec ? 'Sim' : 'Não'}">Não</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </th:block>
+
         </div>
     </div>
 
-    <div th:if="${historicoAgrupado == null or historicoAgrupado.isEmpty()}" class="no-workout">
-        <h1>Histórico Vazio</h1>
+    <div th:if="${historicoAgrupado == null or historicoAgrupado.isEmpty()}" class="no-workout" role="status" aria-live="polite">
+        <h2>Histórico Vazio</h2>
         <p>Você ainda não gerou nenhum treino.</p>
     </div>
 
-    <a th:href="@{/workout/generator}" class="back-button">Voltar ao Gerador</a>
-
+    <div style="text-align:center;">
+        <a th:href="@{/workout/generator}" class="back-button" role="button" aria-label="Voltar ao Gerador">Voltar ao Gerador</a>
+    </div>
 </div>
 
+<!-- Registro de Service Worker (opcional para PWA) -->
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.warn('Service Worker não registado:', err);
+        });
+      });
+    }
+</script>
+
+<noscript>
+    <div style="color:#ffcc00; text-align:center; padding:10px;">
+        Este site funciona melhor com JavaScript habilitado.
+    </div>
+</noscript>
 </body>
 </html>

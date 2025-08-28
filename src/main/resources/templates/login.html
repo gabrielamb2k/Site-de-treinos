@@ -2,94 +2,137 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Compatibilidade com IE/Edge antigos -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Viewport (já tinha, mantive) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Login - Gerador de Treino</title>
+
+    <!-- Preconnect para fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Theme / taskbar colors (Chrome, Firefox OS, Windows) -->
+    <meta name="theme-color" content="#121212">
+    <meta name="msapplication-TileColor" content="#121212">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Apple / iOS web app -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Gerador de Treino">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+
+    <!-- Android / Web App manifest -->
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+
+    <!-- Safari pinned tab (SVG) -->
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#a166f7">
+
+    <!-- Meta para alguns navegadores chineses que escolhem o motor (opcional) -->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+    <!-- Informações para mecanismos e crawlers (opcional) -->
+    <meta name="robots" content="index,follow">
+
+    <!-- Recomenda-se usar um arquivo webmanifest com nome, ícones, theme_color, background_color, start_url -->
+    <!-- Exemplo de link já adicionado: /site.webmanifest (crie esse arquivo na raiz do site) -->
+
+    <!-- Polyfill para navegadores antigos (carrega apenas os polyfills necessários) -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default" defer></script>
+
+    <!-- Condicional para IE < 9: html5shiv (apenas se precisar suportar IE8/7) -->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+          font-family: 'Poppins', sans-serif;
+          background-color: #121212;
+          color: #e0e0e0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          margin: 0;
+          padding: 20px;
+          box-sizing: border-box;
         }
         .login-container {
-            background-color: #1e1e1e;
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 450px;
-            border: 1px solid #333;
+          background-color: #1e1e1e;
+          padding: 30px 40px;
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+          width: 100%;
+          max-width: 450px;
+          border: 1px solid #333;
         }
         h1 {
-            text-align: center;
-            color: #ffffff;
-            margin-bottom: 30px;
-            font-weight: 600;
+          text-align: center;
+          color: #ffffff;
+          margin-bottom: 30px;
+          font-weight: 600;
         }
         .input-group {
-            margin-bottom: 20px;
-            position: relative; /* Para a mensagem de erro */
+          margin-bottom: 20px;
+          position: relative; /* Para a mensagem de erro */
         }
         .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #bb86fc;
-            font-weight: 500;
+          display: block;
+          margin-bottom: 8px;
+          color: #bb86fc;
+          font-weight: 500;
         }
         .input-group input {
-            width: 100%;
-            padding: 12px 15px;
-            background-color: #2c2c2c;
-            border: 2px solid #444;
-            border-radius: 8px;
-            color: #e0e0e0;
-            font-size: 16px;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
+          width: 100%;
+          padding: 12px 15px;
+          background-color: #2c2c2c;
+          border: 2px solid #444;
+          border-radius: 8px;
+          color: #e0e0e0;
+          font-size: 16px;
+          box-sizing: border-box;
+          transition: border-color 0.3s;
         }
         .input-group input:focus {
-            outline: none;
-            border-color: #bb86fc;
+          outline: none;
+          border-color: #bb86fc;
         }
         /* NOVO: Estilo para a mensagem de erro */
         .error-message {
-            color: #ff5555;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none; /* Escondida por defeito */
+          color: #ff5555;
+          font-size: 12px;
+          margin-top: 5px;
+          display: none; /* Escondida por defeito */
         }
         button {
-            width: 100%;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.3s;
+          width: 100%;
+          padding: 15px;
+          font-size: 18px;
+          font-weight: 600;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: transform 0.2s, box-shadow 0.3s;
         }
         .btn-login {
-            color: #121212;
-            background: linear-gradient(90deg, #bb86fc, #a166f7);
-            margin-bottom: 15px;
+          color: #121212;
+          background: linear-gradient(90deg, #bb86fc, #a166f7);
+          margin-bottom: 15px;
         }
         .btn-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(187, 134, 252, 0.3);
+          transform: translateY(-3px);
+          box-shadow: 0 6px 15px rgba(187, 134, 252, 0.3);
         }
     </style>
 </head>
 <body>
-
 <div class="login-container">
     <h1>Bem-vindo de volta!</h1>
     <!-- Adicionado um ID ao formulário para o JavaScript -->
@@ -99,6 +142,7 @@
             <label for="name">Nome:</label>
             <input type="text" id="name" name="name" placeholder="Digite seu nome de usuário" required>
         </div>
+
         <!-- Campo Email -->
         <div class="input-group">
             <label for="email">Email:</label>
@@ -109,7 +153,6 @@
 
         <!-- Botão de Login -->
         <button type="submit" class="btn-login">Entrar</button>
-
     </form>
 </div>
 
@@ -122,26 +165,32 @@
 
     // Adiciona um "ouvinte" para o evento de submissão do formulário
     loginForm.addEventListener('submit', function(event) {
-        // Pega o valor do email e remove espaços em branco
-        const emailValue = emailInput.value.trim();
+      // Pega o valor do email e remove espaços em branco
+      const emailValue = emailInput.value.trim();
 
-        // Expressão regular para validar o email
-        // Verifica se tem algo antes do @, algo depois, um ponto, e pelo menos 2 letras no final
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      // Expressão regular para validar o email
+      // Verifica se tem algo antes do @, algo depois, um ponto, e pelo menos 2 letras no final
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-        // Testa se o email corresponde à expressão regular
-        if (!emailRegex.test(emailValue)) {
-            // Se o email for inválido:
-            // 1. Mostra a mensagem de erro
-            emailError.style.display = 'block';
-            // 2. Impede o envio do formulário
-            event.preventDefault();
-        } else {
-            // Se o email for válido, esconde a mensagem de erro
-            emailError.style.display = 'none';
-        }
+      // Testa se o email corresponde à expressão regular
+      if (!emailRegex.test(emailValue)) {
+        // Se o email for inválido:
+        // 1. Mostra a mensagem de erro
+        emailError.style.display = 'block';
+        // 2. Impede o envio do formulário
+        event.preventDefault();
+      } else {
+        // Se o email for válido, esconde a mensagem de erro
+        emailError.style.display = 'none';
+      }
     });
 </script>
 
+<!-- Mensagem para usuários sem JavaScript -->
+<noscript>
+    <div style="color:#ffcc00; text-align:center; padding:10px;">
+        Este site funciona melhor com JavaScript habilitado.
+    </div>
+</noscript>
 </body>
 </html>

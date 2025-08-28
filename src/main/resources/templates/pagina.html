@@ -2,136 +2,195 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Compatibilidade com IE/Edge antigos -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Gerador de Treino</title>
+
+    <!-- Preconnect / Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Theme / taskbar colors -->
+    <meta name="theme-color" content="#121212">
+    <meta name="msapplication-TileColor" content="#121212">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Apple / iOS web app -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Gerador de Treino">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+
+    <!-- Android / Web App manifest -->
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+
+    <!-- Safari pinned tab (SVG) -->
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#a166f7">
+
+    <!-- Meta para navegadores chineses (opcional) -->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+    <!-- Crawlers -->
+    <meta name="robots" content="index,follow">
+
+    <!-- Polyfill para compatibilidade com navegadores antigos -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default" defer></script>
+
+    <!-- Condicional para IE < 9 (apenas se precisar suportar IE8/7) -->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+          font-family: 'Poppins', sans-serif;
+          background-color: #121212;
+          color: #e0e0e0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          margin: 0;
+          padding: 20px;
+          box-sizing: border-box;
         }
         .workout-container {
-            background-color: #1e1e1e;
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 500px;
-            border: 1px solid #333;
-            position: relative; /* Para posicionar o botão de histórico */
+          background-color: #1e1e1e;
+          padding: 30px 40px;
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+          width: 100%;
+          max-width: 500px;
+          border: 1px solid #333;
+          position: relative; /* Para posicionar o botão de histórico */
         }
-        /* NOVO: Estilo para o botão de histórico */
+        /* Botão de histórico */
         .history-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 8px 12px;
-            background-color: #333;
-            color: #bb86fc;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background-color 0.3s;
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          padding: 8px 12px;
+          background-color: #333;
+          color: #bb86fc;
+          text-decoration: none;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: 500;
+          transition: background-color 0.3s;
         }
-        .history-button:hover {
-            background-color: #444;
+        .history-button:hover,
+        .history-button:focus {
+          background-color: #444;
+          outline: none;
         }
         h1 {
-            text-align: center;
-            color: #ffffff;
-            margin-bottom: 30px;
-            font-weight: 600;
+          text-align: center;
+          color: #ffffff;
+          margin-bottom: 30px;
+          font-weight: 600;
         }
         .form-step {
-            margin-bottom: 25px;
+          margin-bottom: 25px;
         }
         .form-step h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #bb86fc;
-            font-weight: 500;
+          font-size: 18px;
+          margin-bottom: 15px;
+          color: #bb86fc;
+          font-weight: 500;
         }
         .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
         }
         .option-label {
-            background-color: #2c2c2c;
-            border: 2px solid #444;
-            border-radius: 8px;
-            padding: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s, border-color 0.3s;
-            display: block;
+          background-color: #2c2c2c;
+          border: 2px solid #444;
+          border-radius: 8px;
+          padding: 15px;
+          cursor: pointer;
+          transition: background-color 0.3s, border-color 0.3s;
+          display: block;
         }
-        .option-label:hover {
-            background-color: #3a3a3a;
-            border-color: #777;
+        .option-label:hover,
+        .option-label:focus-within {
+          background-color: #3a3a3a;
+          border-color: #777;
         }
         .option-label input[type="radio"] {
-            display: none;
+          position: absolute;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .option-label span {
+          margin-left: 0; /* espaço se quiser ícone */
         }
         .option-label input[type="radio"]:checked + span {
-            font-weight: 600;
-            color: #ffffff;
+          font-weight: 600;
+          color: #ffffff;
         }
         .option-label input[type="radio"]:checked + span::before {
-            content: '✔ ';
-            color: #bb86fc;
+          content: '✔ ';
+          color: #bb86fc;
         }
         #generate-btn {
-            width: 100%;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: 600;
-            color: #121212;
-            background: linear-gradient(90deg, #bb86fc, #a166f7);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.2s, box-shadow 0.3s;
+          width: 100%;
+          padding: 15px;
+          font-size: 18px;
+          font-weight: 600;
+          color: #121212;
+          background: linear-gradient(90deg, #bb86fc, #a166f7);
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          margin-top: 20px;
+          transition: transform 0.2s, box-shadow 0.3s;
         }
-        #generate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(187, 134, 252, 0.3);
+        #generate-btn:hover,
+        #generate-btn:focus {
+          transform: translateY(-3px);
+          box-shadow: 0 6px 15px rgba(187, 134, 252, 0.3);
+          outline: none;
         }
         .hidden {
-            display: none;
+          display: none;
+        }
+
+        /* Acessibilidade: foco visível para controles */
+        input[type="radio"]:focus + span,
+        .history-button:focus {
+          box-shadow: 0 0 0 3px rgba(161, 120, 255, 0.15);
         }
     </style>
 </head>
 <body>
 
-<div class="workout-container">
+<div class="workout-container" role="main" aria-labelledby="page-title">
+    <!-- Botão para aceder ao histórico -->
+    <a th:href="@{/workout/historico}" class="history-button" aria-label="Ver histórico de treinos">Ver Histórico</a>
 
-    <!-- NOVO: Botão para aceder ao histórico -->
-    <a th:href="@{/workout/historico}" class="history-button">Ver Histórico</a>
+    <h1 id="page-title">Gerador de Treino</h1>
 
-    <h1>Gerador de Treino</h1>
-    <form id="workout-form" th:action="@{/workout/generator}" method="post">
+    <form id="workout-form" th:action="@{/workout/generator}" method="post" aria-describedby="form-desc">
+        <div id="form-desc" class="hidden">Formulário passo a passo para gerar um treino personalizado.</div>
+
         <!-- Etapa 1: Tipo de Treino -->
         <div class="form-step" id="step1">
             <h2>1. Qual tipo de treino quer fazer?</h2>
-            <div class="options-container" id="training-type">
-                <label class="option-label">
-                    <input type="radio" name="tipoDeTreino" value="hibrido" required>
+            <div class="options-container" id="training-type" role="radiogroup" aria-label="Tipo de treino">
+                <label class="option-label" tabindex="0">
+                    <input type="radio" name="tipoDeTreino" value="hibrido" required aria-required="true">
                     <span>Treino Híbrido</span>
                 </label>
-                <label class="option-label">
-                    <input type="radio" name="tipoDeTreino" value="academia" required>
+                <label class="option-label" tabindex="0">
+                    <input type="radio" name="tipoDeTreino" value="academia" required aria-required="true">
                     <span>Apenas Academia</span>
                 </label>
             </div>
@@ -140,47 +199,101 @@
         <!-- Etapa 2: Divisão do Treino -->
         <div class="form-step hidden" id="step2">
             <h2>2. Qual divisão de treino prefere?</h2>
-            <div class="options-container" id="training-split">
-                <label class="option-label"><input type="radio" name="divisaoDeTreino" value="upper-lower" required><span>Superior / Inferior</span></label>
-                <label class="option-label"><input type="radio" name="divisaoDeTreino" value="full-body" required><span>Full Body</span></label>
+            <div class="options-container" id="training-split" role="radiogroup" aria-label="Divisão do treino">
+                <label class="option-label" tabindex="0">
+                    <input type="radio" name="divisaoDeTreino" value="upper-lower" required>
+                    <span>Superior / Inferior</span>
+                </label>
+                <label class="option-label" tabindex="0">
+                    <input type="radio" name="divisaoDeTreino" value="full-body" required>
+                    <span>Full Body</span>
+                </label>
             </div>
         </div>
 
         <!-- Etapa 3: Tempo Disponível -->
         <div class="form-step hidden" id="step3">
             <h2>3. Quanto tempo tem disponível por treino?</h2>
-            <div class="options-container" id="training-time">
-                <label class="option-label"><input type="radio" name="duracaoDoTreino" value="45" required><span>Até 45 minutos</span></label>
-                <label class="option-label"><input type="radio" name="duracaoDoTreino" value="60" required><span>Entre 45 e 60 minutos</span></label>
-                <label class="option-label"><input type="radio" name="duracaoDoTreino" value="90" required><span>Mais de 60 minutos</span></label>
+            <div class="options-container" id="training-time" role="radiogroup" aria-label="Tempo disponível">
+                <label class="option-label" tabindex="0">
+                    <input type="radio" name="duracaoDoTreino" value="45" required>
+                    <span>Até 45 minutos</span>
+                </label>
+                <label class="option-label" tabindex="0">
+                    <input type="radio" name="duracaoDoTreino" value="60" required>
+                    <span>Entre 45 e 60 minutos</span>
+                </label>
+                <label class="option-label" tabindex="0">
+                    <input type="radio" name="duracaoDoTreino" value="90" required>
+                    <span>Mais de 60 minutos</span>
+                </label>
             </div>
         </div>
 
         <!-- Botão Final -->
         <div id="submit-container" class="hidden">
-            <button type="submit" id="generate-btn">Gerador</button>
+            <button type="submit" id="generate-btn" aria-label="Gerar treino">Gerador</button>
         </div>
     </form>
 </div>
 
 <script>
+    // Progresso passo a passo (funciona com 'change' que borbulha dos inputs)
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
     const submitContainer = document.getElementById('submit-container');
 
+    // Ao mudar qualquer opção em step1, mostra step2
     step1.addEventListener('change', () => {
-        step2.classList.remove('hidden');
+      step2.classList.remove('hidden');
+      // rolar levemente para a próxima etapa (melhora UX em mobile)
+      step2.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
+    // Ao mudar qualquer opção em step2, mostra step3
     step2.addEventListener('change', () => {
-        step3.classList.remove('hidden');
+      step3.classList.remove('hidden');
+      step3.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
+    // Ao mudar qualquer opção em step3, mostra o botão de envio
     step3.addEventListener('change', () => {
-        submitContainer.classList.remove('hidden');
+      submitContainer.classList.remove('hidden');
+      submitContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // Melhora a usabilidade: permitir que labels "focusable" capturem Enter/Space como click
+    document.querySelectorAll('.option-label').forEach(label => {
+      label.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const radio = label.querySelector('input[type="radio"]');
+          if (radio) radio.checked = true;
+          // disparar evento change manualmente para garantir progresso em alguns browsers
+          radio.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
     });
 </script>
+
+<!-- Registo básico de Service Worker para PWA (opcional) -->
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.warn('Service Worker não registado:', err);
+        });
+      });
+    }
+</script>
+
+<!-- Mensagem para usuários sem JavaScript -->
+<noscript>
+    <div style="color:#ffcc00; text-align:center; padding:10px;">
+        Este site funciona melhor com JavaScript habilitado.
+    </div>
+</noscript>
 
 </body>
 </html>

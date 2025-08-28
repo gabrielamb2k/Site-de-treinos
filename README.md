@@ -13,7 +13,6 @@ O **Gerador de Treinos** é uma aplicação web desenvolvida em Java que permite
 - **Thymeleaf** - Engine de templates para renderização das páginas
 - **JUnit 5** - Framework para testes unitários
 - **Maven** - Gerenciador de dependências e build
-- **HTML/CSS/JavaScript** - Frontend responsivo
 
 ## 🏗️ Arquitetura e Padrões de Projeto
 
